@@ -2,7 +2,8 @@
 // Created by sivan on 06/01/2020.
 //
 
-#include "UniqueArray.h"
+#ifndef HW3_UNIQUEARRAYIMP_H
+#define HW3_UNIQUEARRAYIMP_H
 
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
@@ -76,3 +77,5 @@ template<class Element, class Compare>
 UniqueArray UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
     return UniqueArray(0);
 }
+
+#endif //HW3_UNIQUEARRAYIMP_H
