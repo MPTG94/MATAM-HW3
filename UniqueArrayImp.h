@@ -8,7 +8,7 @@
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
         size(size),
-        array(new Element*[size]),
+        array(new Element *[size]),
         histogram(new int[size]) {
     for (int i = 0; i < size; i++) {
         this->histogram[i] = 0;
@@ -18,7 +18,7 @@ UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(const UniqueArray &other) :
         size(other->size),
-        array(new Element*[other->size]),
+        array(new Element *[other->size]),
         histogram(new int[other->size]) {
     for (int i = 0; i < size; i++) {
         this->histogram[i] = other->histogram[i];
@@ -50,6 +50,14 @@ unsigned int UniqueArray<Element, Compare>::insert(const Element &element) {
 
 template<class Element, class Compare>
 bool UniqueArray<Element, Compare>::getIndex(const Element &element, unsigned int &index) const {
+    for (int i = 0 ; i < this->size ; i++) {
+        if (this->histogram[i] != 0) {
+            if (Compare(element, this->array[i])) {
+                index = i;
+                return true;
+            }
+        }
+    }
     return false;
 }
 
