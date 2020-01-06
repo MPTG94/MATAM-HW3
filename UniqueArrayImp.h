@@ -2,8 +2,8 @@
 // Created by sivan on 06/01/2020.
 //
 
-#ifndef HW3_UNIQUEARRAYLMP_H
-#define HW3_UNIQUEARRAYLMP_H
+#ifndef HW3_UNIQUEARRAYIMP_H
+#define HW3_UNIQUEARRAYIMP_H
 
 template<class Element, class Compare = std::equal_to <Element>>
 UniqueArray<Element>::UniqueArray(unsigned int size) :
@@ -33,4 +33,4 @@ UniqueArray<Element>::~UniqueArray() {
 }
 
 
-#endif //HW3_UNIQUEARRAYLMP_H
+#endif //HW3_UNIQUEARRAYIMP_H
