@@ -24,7 +24,7 @@ public:
     unsigned int getSize() const;
     const int contains(const Element& element) const;
     int getHistogramValueAtIndex(int index);
-    Element* getElementByIndex(int index) const;
+    Element * getElementByIndex(int index) const;
 
     class Filter {
     public:
