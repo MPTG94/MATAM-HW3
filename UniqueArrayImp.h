@@ -56,7 +56,7 @@ unsigned int UniqueArray<Element, Compare>::insert(const Element &element) {
 
 template<class Element, class Compare>
 bool UniqueArray<Element, Compare>::getIndex(const Element &element, unsigned int &index) const {
-    for (int i = 0 ; i < this->size ; i++) {
+    for (int i = 0; i < this->size; i++) {
         if (this->histogram[i] != 0) {
             if (Compare(element, this->array[i])) {
                 index = i;
@@ -69,12 +69,16 @@ bool UniqueArray<Element, Compare>::getIndex(const Element &element, unsigned in
 
 template<class Element, class Compare>
 const Element *UniqueArray<Element, Compare>::operator[](const Element &element) const {
+    const int position = this->contains(element);
+    if (position != -1) {
+        return this->array[position];
+    }
     return nullptr;
 }
 
 template<class Element, class Compare>
 bool UniqueArray<Element, Compare>::remove(const Element &element) {
-    for (int i =0; i< size; i++) {
+    for (int i = 0; i < size; i++) {
         if ((Compare(), *this->array[i]) == element) {
             this->array[i] = nullptr;
             this->histogram[i] = 0;
@@ -87,28 +91,46 @@ bool UniqueArray<Element, Compare>::remove(const Element &element) {
 
 template<class Element, class Compare>
 unsigned int UniqueArray<Element, Compare>::getCount() const {
-    return 0;
+    unsigned int count = 0;
+    for (int i = 0; i < this->size; i++) {
+        count += this->histogram[i];
+    }
+
+    return count;
 }
 
 template<class Element, class Compare>
 unsigned int UniqueArray<Element, Compare>::getSize() const {
-    return 0;
+    return this->size;
 }
 
 template<class Element, class Compare>
-UniqueArray UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
-    return UniqueArray(0);
-}
-
-template<class Element, class Compare>
-const unsigned int UniqueArray<Element, Compare>::contains(const Element &element) {
+UniqueArray<Element, Compare> UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
+    UniqueArray<Element, Compare> filtered = new UniqueArray<Element, Compare>(this->size);
     for (int i =0; i< this->size; i++) {
-        if ((Compare(),*this->array[i]) == element) {
+        if (f.operator()(this->array[i])) {
+            filtered.insertAtIndex(i, this->array[i]);
+        }
+    }
+
+    return filtered;
+}
+
+template<class Element, class Compare>
+const int UniqueArray<Element, Compare>::contains(const Element &element) {
+    for (int i = 0; i < this->size; i++) {
+        if ((Compare(), *this->array[i]) == element) {
             return i;
         }
     }
 
     return -1;
+}
+
+template<class Element, class Compare>
+void UniqueArray<Element, Compare>::insertAtIndex(unsigned int index, const Element &element) {
+    this->array[index] = element;
+    this->histogram[index] = 1;
 }
 
 #endif //HW3_UNIQUEARRAYIMP_H

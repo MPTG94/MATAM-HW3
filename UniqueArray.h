@@ -11,17 +11,18 @@ private:
 
 public:
 
-    UniqueArray(unsigned int size);
+    explicit UniqueArray(unsigned int size);
     UniqueArray(const UniqueArray& other);
     ~UniqueArray();
     UniqueArray& operator=(const UniqueArray&) = delete;
     unsigned int insert(const Element& element);
+    void insertAtIndex(unsigned int index, const Element& element);
     bool getIndex(const Element& element, unsigned int& index) const;
     const Element* operator[] (const Element& element) const;
     bool remove(const Element& element);
     unsigned int getCount() const;
     unsigned int getSize() const;
-    const unsigned int contains(const Element& element);
+    const int contains(const Element& element);
 
     class Filter {
     public:
