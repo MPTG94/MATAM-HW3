@@ -6,7 +6,7 @@ class UniqueArray {
 
 private:
     const unsigned int size;
-    Element* array;
+    Element ** array;
     int* histogram;
 
 public:
@@ -22,7 +22,9 @@ public:
     bool remove(const Element& element);
     unsigned int getCount() const;
     unsigned int getSize() const;
-    const int contains(const Element& element);
+    const int contains(const Element& element) const;
+    int getHistogramValueAtIndex(int index);
+    Element* getElementByIndex(int index) const;
 
     class Filter {
     public:
