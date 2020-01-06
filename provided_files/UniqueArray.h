@@ -3,6 +3,12 @@
 
 template <class Element, class Compare = std::equal_to<Element>>
 class UniqueArray {
+
+private:
+    const unsigned int size;
+    Element* array;
+    int* histogram;
+
 public:
 
     UniqueArray(unsigned int size);
