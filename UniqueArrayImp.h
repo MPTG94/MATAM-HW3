@@ -20,6 +20,7 @@ UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
     }
 }
 
+// FIXME: consider changing the assignment of histogram array to all zeros before assigning new values in
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(const UniqueArray &other) :
         size(other.getSize()),
@@ -120,6 +121,7 @@ unsigned int UniqueArray<Element, Compare>::getSize() const {
     return this->size;
 }
 
+// TODO: replace insert at index with full copy of the existing provided unique array and removing the filtered items
 template<class Element, class Compare>
 UniqueArray<Element, Compare> UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
     UniqueArray<Element, Compare> *filtered = new UniqueArray<Element, Compare>(this->getSize());
