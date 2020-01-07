@@ -40,10 +40,7 @@ UniqueArray<Element, Compare>::UniqueArray(const UniqueArray &other) :
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::~UniqueArray() {
     for (int i =0; i< this->size; i++) {
-        if (this->array[i] != nullptr) {
-            cout << "attempting to delte address: " << this->array[i] << endl;
-            //cout << "attempting to delte address *: " << *this->array[i] << endl;
-            //cout << "attempting to delte address **: " << **this->array[i] << endl;
+        if (this->array[i] != nullptr && this->histogram[i] == 1) {
             delete this->array[i];
         }
     }
