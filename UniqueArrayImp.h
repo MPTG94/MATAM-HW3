@@ -72,9 +72,11 @@ unsigned int UniqueArray<Element, Compare>::insert(const Element &element) {
 
 template<class Element, class Compare>
 bool UniqueArray<Element, Compare>::getIndex(const Element &element, unsigned int &index) const {
+    Compare compare;
     for (int i = 0; i < this->size; i++) {
         if (this->histogram[i] != 0) {
-            if (Compare(), element == *this->array[i]) {
+            if (compare(element, *this->array[i])) {
+            //if (Compare(), element == *this->array[i]) {
                 index = i;
                 return true;
             }
@@ -94,8 +96,10 @@ const Element *UniqueArray<Element, Compare>::operator[](const Element &element)
 
 template<class Element, class Compare>
 bool UniqueArray<Element, Compare>::remove(const Element &element) {
+    Compare compare;
     for (int i = 0; i < size; i++) {
-        if ((Compare(), *this->array[i]) == element) {
+        if (compare(*this->array[i], element)) {
+        //if ((Compare(), *this->array[i]) == element) {
             delete this->array[i];
             this->array[i] = nullptr;
             this->histogram[i] = 0;
@@ -136,12 +140,14 @@ UniqueArray<Element, Compare> UniqueArray<Element, Compare>::filter(const Unique
 
 template<class Element, class Compare>
 const int UniqueArray<Element, Compare>::contains(const Element &element) const {
+    Compare compare;
     for (int i = 0; i < this->size; i++) {
         if (this->array[i] == nullptr) {
             continue;
         }
 
-        if ((Compare(), *this->array[i]) == element) {
+        if (compare(*this->array[i], element)) {
+        //if ((Compare(), *this->array[i]) == element) {
             return i;
         }
     }
