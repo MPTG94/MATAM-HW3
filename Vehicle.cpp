@@ -40,35 +40,20 @@ unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
     Time totalTime = exitTime - this->entranceTime;
     unsigned int totalTimeInHours = totalTime.toHours();
     if (totalTimeInHours == 0) {
-        return 0;
+        return price;
     }
-
     if (CurrentType == HANDICAPPED) {
         price = PRICE_FOR_HANDICAPPED;
     } else if (CurrentType == MOTORBIKE) {
-        if (totalTimeInHours <= oneHour) {
-            price =PRICE_FOR_FIRST_HOUR_MOTORBIKE;
-        }
-        else if ((totalTimeInHours > oneHour)&&(totalTimeInHours<=6*oneHour)) {
-            price= PRICE_FOR_FIRST_HOUR_MOTORBIKE + PRICE_FOR_EXTRA_HOURS_MOTORBIKE * (totalTimeInHours - 1);
-        }
-        else{
-            price = MAX_PRICE_FOR_MOTORBIKE;
-        }
+        price = calculateMotorbikeParkingPrice(totalTimeInHours, oneHour, price);
     }
     else {
-        if (totalTimeInHours <= oneHour) {
-            price =PRICE_FOR_FIRST_HOUR_CAR;
+        price = calculatingCarParkingPrice(totalTimeInHours, oneHour, price);
         }
-        else if ((totalTimeInHours > oneHour)&&(totalTimeInHours<=6*oneHour)) {
-            price= PRICE_FOR_FIRST_HOUR_CAR + PRICE_FOR_EXTRA_HOURS_CAR * (totalTimeInHours - 1);
-        }
-        else{
-            price = MAX_PRICE_FOR_CAR;
-        }
-    }
     if (this->isFined()){
         price += FINE ;
     }
     return price;
 }
+
+
