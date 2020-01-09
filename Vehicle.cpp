@@ -8,7 +8,7 @@
 #define PRICE_FOR_FIRST_HOUR_CAR 20
 #define PRICE_FOR_EXTRA_HOURS_CAR 10
 #define MAX_PRICE_FOR_CAR 70
-
+#define FINE 250
 
 #include "Vehicle.h"
 
@@ -52,6 +52,9 @@ unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
         else{
             price = MAX_PRICE_FOR_CAR;
         }
+    }
+    if (this->isFined()){
+        price += FINE ;
     }
     return price;
 }
