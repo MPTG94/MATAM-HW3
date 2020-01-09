@@ -20,7 +20,7 @@ private:
     bool fined = false;
 
 public:
-    Vehicle(const string& plate, Time entranceTime, VehicleType type);
+    Vehicle(string  plate, Time entranceTime, VehicleType type);
     string getLicensePlate();
     VehicleType getVehicleType();
     bool isFined();
