@@ -11,7 +11,6 @@ using namespace std;
 
 #include "UniqueArray.h"
 
-// TODO: documentation
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
         size(size),
@@ -23,7 +22,6 @@ UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
     }
 }
 
-// FIXME: consider changing the assignment of histogram array to all zeros before assigning new values in
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(const UniqueArray &other) :
         size(other.getSize()),
@@ -45,13 +43,9 @@ UniqueArray<Element, Compare>::UniqueArray(const UniqueArray &other) :
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::~UniqueArray() {
     for (int i = 0; i < this->size; i++) {
-//        if (this->histogram[i] == 1 && this->array[i] != nullptr) {
-//            delete this->array[i];
-//        }
-//        else {
-//            delete this->array[i];
-//        }
-        delete this->array[i];
+        if (this->histogram[i] == 1 && this->array[i] != nullptr) {
+            delete this->array[i];
+        }
     }
     delete[] this->array;
     delete[] this->histogram;
@@ -79,7 +73,8 @@ unsigned int UniqueArray<Element, Compare>::insert(const Element &element) {
 }
 
 template<class Element, class Compare>
-bool UniqueArray<Element, Compare>::getIndex(const Element &element, unsigned int &index) const {
+bool UniqueArray<Element, Compare>::getIndex(const Element &element,
+                                             unsigned int &index) const {
     Compare compare;
     for (int i = 0; i < this->size; i++) {
         if (this->histogram[i] != 0) {
@@ -93,7 +88,8 @@ bool UniqueArray<Element, Compare>::getIndex(const Element &element, unsigned in
 }
 
 template<class Element, class Compare>
-const Element *UniqueArray<Element, Compare>::operator[](const Element &element) const {
+const Element *
+UniqueArray<Element, Compare>::operator[](const Element &element) const {
     const int position = this->contains(element);
     if (position != -1) {
         return this->array[position];
@@ -106,7 +102,6 @@ bool UniqueArray<Element, Compare>::remove(const Element &element) {
     Compare compare;
     for (int i = 0; i < size; i++) {
         if ((this->histogram[i] == 1) && compare(*this->array[i], element)) {
-            //if ((Compare(), *this->array[i]) == element) {
             delete this->array[i];
             this->array[i] = nullptr;
             this->histogram[i] = 0;
@@ -133,7 +128,8 @@ unsigned int UniqueArray<Element, Compare>::getSize() const {
 }
 
 template<class Element, class Compare>
-UniqueArray<Element, Compare> UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
+UniqueArray<Element, Compare>
+UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
 //    UniqueArray<Element, Compare> *filtered = new UniqueArray<Element, Compare>(this->size);
 //    for (int i = 0; i < this->size; i++) {
 //        if (f.operator()(*this->array[i])) {
@@ -145,16 +141,17 @@ UniqueArray<Element, Compare> UniqueArray<Element, Compare>::filter(const Unique
 //
 //    return *filtered;
     UniqueArray<Element, Compare> filtered(*this);
-    for (int i =0; i< this->size; i++) {
+    for (int i = 0; i < this->size; i++) {
         if (!f.operator()(*this->array[i])) {
             filtered.remove(*this->array[i]);
         }
     }
-        return filtered;
+    return filtered;
 }
 
 template<class Element, class Compare>
-const int UniqueArray<Element, Compare>::contains(const Element &element) const {
+const int
+UniqueArray<Element, Compare>::contains(const Element &element) const {
     Compare compare;
     for (int i = 0; i < this->size; i++) {
         if (this->histogram[i] == 0) {
@@ -170,8 +167,8 @@ const int UniqueArray<Element, Compare>::contains(const Element &element) const 
 }
 
 template<class Element, class Compare>
-void UniqueArray<Element, Compare>::insertAtIndex(unsigned int index, const Element &element) {
-//    cout << "address to copy from is: " << element << endl;
+void UniqueArray<Element, Compare>::insertAtIndex(unsigned int index,
+                                                  const Element &element) {
     this->array[index] = new Element(element);
     this->histogram[index] = 1;
 }
