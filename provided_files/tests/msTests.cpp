@@ -2,6 +2,8 @@
 // Created by Mor on 09/01/2020.
 //
 
+#include <functional>
+
 #include "../../UniqueArray.h"
 
 class Point {
@@ -41,7 +43,8 @@ void testFilter() {
     pUA.insert(point100);
 
     PointUA filtered = pUA.filter(LessThan5());
-    Point const *p100 = filtered[&point100];
+    const Point *p100 = filtered[point100];
+
 }
 
 int main() {
