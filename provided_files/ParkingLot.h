@@ -12,8 +12,7 @@ namespace MtmParkingLot {
 
     class ParkingLot {
     public:
-
-        ParkingLot(unsigned int parkingBlockSizes[]);
+        explicit ParkingLot(unsigned int parkingBlockSizes[]);
         ~ParkingLot();
         ParkingResult enterParking(VehicleType vehicleType, LicensePlate licensePlate, Time entranceTime);
         ParkingResult exitParking(LicensePlate licensePlate, Time exitTime);

@@ -11,6 +11,7 @@ using namespace std;
 
 #include "UniqueArray.h"
 
+// TODO: documentation
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
         size(size),
@@ -136,6 +137,8 @@ UniqueArray<Element, Compare> UniqueArray<Element, Compare>::filter(const Unique
 //    UniqueArray<Element, Compare> *filtered = new UniqueArray<Element, Compare>(this->size);
 //    for (int i = 0; i < this->size; i++) {
 //        if (f.operator()(*this->array[i])) {
+//            cout << "address is: " << this->array[i] <<endl;
+//            cout << "address value is: " << *this->array[i] <<endl;
 //            filtered->insertAtIndex(i, *this->array[i]);
 //        }
 //    }
@@ -168,6 +171,7 @@ const int UniqueArray<Element, Compare>::contains(const Element &element) const 
 
 template<class Element, class Compare>
 void UniqueArray<Element, Compare>::insertAtIndex(unsigned int index, const Element &element) {
+//    cout << "address to copy from is: " << element << endl;
     this->array[index] = new Element(element);
     this->histogram[index] = 1;
 }
