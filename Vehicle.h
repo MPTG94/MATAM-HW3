@@ -25,7 +25,7 @@ public:
     VehicleType getVehicleType();
     bool isFined();
     void markAsFined();
-    unsigned int calculateParkingPrice();
+    unsigned int calculateParkingPrice( Time exitTime);
 };
 
 #endif //HW3_VEHICLE_H
