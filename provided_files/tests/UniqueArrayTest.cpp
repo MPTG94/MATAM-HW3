@@ -65,6 +65,7 @@ static void testIntP() {
     assert(filtered.getCount() == 3);
     assert(!filtered.getIndex(&array[4], index1)); // & of 35
     assert(filtered.getIndex(&array[2], index1)); // & of 17
+    delete[] array;
 }
 
 static void testInt() {

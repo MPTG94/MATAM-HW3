@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(uniqueArr-Local ./provided_files/tests/UniqueArrayTest.cpp UniqueArray.h UniqueArrayImp.h)
 add_executable(uniqueArr-Yuval ./provided_files/tests/OurUATests.cpp UniqueArray.h UniqueArrayImp.h)
+add_executable(uniqueArr-ms ./provided_files/tests/msTests.cpp UniqueArray.h UniqueArrayImp.h)
