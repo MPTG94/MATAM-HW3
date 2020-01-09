@@ -12,8 +12,8 @@
 
 #include "Vehicle.h"
 
-Vehicle::Vehicle(string plate, Time entranceTime, VehicleType type) : plate(
-        plate), entranceTime(entranceTime), type(type) {}
+Vehicle::Vehicle(string plate, Time entranceTime, VehicleType type) :
+        plate(plate), entranceTime(entranceTime), type(type) {}
 
 bool Vehicle::isFined() {
     return this->fined;
@@ -22,12 +22,23 @@ VehicleType Vehicle::getVehicleType() {
     return this->type;
 }
 
+string Vehicle::getLicensePlate() {
+    return this->plate;
+}
+
+void Vehicle::markAsFined() {
+    this->fined = true;
+}
+
 unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
     unsigned int price = 0;
     VehicleType CurrentType = this->getVehicleType();
     unsigned int oneHour = 1;
     Time totalTime = exitTime - this->entranceTime;
     unsigned int totalTimeInHours = totalTime.toHours();
+    if (totalTimeInHours == 0) {
+        return 0;
+    }
 
     if (CurrentType == HANDICAPPED) {
         price = PRICE_FOR_HANDICAPPED;
@@ -58,12 +69,3 @@ unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
     }
     return price;
 }
-
-string Vehicle::getLicensePlate() {
-    return this->plate;
-}
-
-void Vehicle::markAsFined() {
-    this->fined = true;
-}
-
