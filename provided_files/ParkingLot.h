@@ -8,6 +8,7 @@
 #include "../UniqueArray.h"
 #include "../Vehicle.h"
 
+
 namespace MtmParkingLot {
 
     using namespace ParkingLotUtils;
