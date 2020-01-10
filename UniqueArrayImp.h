@@ -130,19 +130,9 @@ unsigned int UniqueArray<Element, Compare>::getSize() const {
 template<class Element, class Compare>
 UniqueArray<Element, Compare>
 UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
-//    UniqueArray<Element, Compare> *filtered = new UniqueArray<Element, Compare>(this->size);
-//    for (int i = 0; i < this->size; i++) {
-//        if (f.operator()(*this->array[i])) {
-//            cout << "address is: " << this->array[i] <<endl;
-//            cout << "address value is: " << *this->array[i] <<endl;
-//            filtered->insertAtIndex(i, *this->array[i]);
-//        }
-//    }
-//
-//    return *filtered;
     UniqueArray<Element, Compare> filtered(*this);
     for (int i = 0; i < this->size; i++) {
-        if (!f.operator()(*this->array[i])) {
+        if (!f(*this->array[i])) {
             filtered.remove(*this->array[i]);
         }
     }
