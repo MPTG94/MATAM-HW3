@@ -20,12 +20,19 @@ namespace MtmParkingLot {
         UniqueArray<Vehicle, std::equal_to<Vehicle>> carArray;
 
     public:
+        // TODO: mor
         explicit ParkingLot(unsigned int parkingBlockSizes[]);
+        // TODO: mor
         ~ParkingLot();
+        // TODO: sivan :) :-) =) :D
         ParkingResult enterParking(VehicleType vehicleType, LicensePlate licensePlate, Time entranceTime);
+        // TODO: sivan :) :-) =) :D
         ParkingResult exitParking(LicensePlate licensePlate, Time exitTime);
+        // TODO: sivan :) :-) =) :D
         ParkingResult getParkingSpot(LicensePlate licensePlate, ParkingSpot& parkingSpot) const;
+        // TODO: sivan :) :-) =) :D
         void inspectParkingLot(Time inspectionTime);
+        // TODO: mor
         friend ostream& operator<<(ostream& os, const ParkingLot& parkingLot);
 
     };
