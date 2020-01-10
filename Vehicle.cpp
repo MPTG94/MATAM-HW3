@@ -45,7 +45,7 @@ unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
         return price;
     }
     if (CurrentType == HANDICAPPED) {
-        price = PRICE_FOR_HANDICAPPED * totalTimeInHours;
+        price = PRICE_FOR_HANDICAPPED;
     } else if (CurrentType == MOTORBIKE) {
         price = calculateMotorbikeParkingPrice(totalTimeInHours, oneHour,
                                                price);
