@@ -18,21 +18,32 @@ private:
     Time entranceTime;
     VehicleType type;
     bool fined = false;
+
     static unsigned int calculatingCarParkingPrice(unsigned int
                                                    totalTimeInHours,
                                                    unsigned int oneHour,
                                                    unsigned int price);
+
     static unsigned int calculateMotorbikeParkingPrice(unsigned int
                                                        totalTimeInHours,
                                                        unsigned int oneHour,
                                                        unsigned int price);
+
 public:
-    Vehicle(string  plate, Time entranceTime, VehicleType type);
+    Vehicle(string plate, Time entranceTime, VehicleType type);
+
     string getLicensePlate();
+
     VehicleType getVehicleType();
+
     bool isFined();
+
     void markAsFined();
-    unsigned int calculateParkingPrice( Time exitTime);
+
+    unsigned int calculateParkingPrice(Time exitTime);
+
+    bool operator==(const Vehicle &vehicle) const;
+
 };
 
 #endif //HW3_VEHICLE_H

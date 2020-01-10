@@ -1,9 +1,12 @@
 #ifndef MTMPARKINGLOT_PARKINGLOT_H
 #define MTMPARKINGLOT_PARKINGLOT_H
 
+#include <functional>
 #include "ParkingLotTypes.h"
 #include "Time.h"
 #include "ParkingSpot.h"
+#include "../UniqueArray.h"
+#include "../Vehicle.h"
 
 namespace MtmParkingLot {
 
@@ -11,6 +14,11 @@ namespace MtmParkingLot {
     using std::ostream;
 
     class ParkingLot {
+    private:
+        UniqueArray<Vehicle, std::equal_to<Vehicle>> motorbikeArray;
+        UniqueArray<Vehicle, std::equal_to<Vehicle>> handicapArray;
+        UniqueArray<Vehicle, std::equal_to<Vehicle>> carArray;
+
     public:
         explicit ParkingLot(unsigned int parkingBlockSizes[]);
         ~ParkingLot();

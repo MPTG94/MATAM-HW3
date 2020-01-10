@@ -88,3 +88,7 @@ Vehicle::calculateMotorbikeParkingPrice(unsigned int totalTimeInHours,
 
     return price;
 }
+
+bool Vehicle::operator==(const Vehicle &vehicle) const {
+    return vehicle.plate == this->plate;
+}
