@@ -36,6 +36,8 @@ public:
 
     VehicleType getVehicleType();
 
+    Time getEntranceTime();
+
     bool isFined();
 
     void markAsFined();

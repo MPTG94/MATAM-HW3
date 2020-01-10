@@ -31,6 +31,10 @@ string Vehicle::getLicensePlate() {
     return this->plate;
 }
 
+Time Vehicle::getEntranceTime() {
+    return this->entranceTime;
+}
+
 void Vehicle::markAsFined() {
     this->fined = true;
 }

@@ -6,6 +6,19 @@
 
 #include "../../UniqueArray.h"
 
+class Test {
+private:
+    UniqueArray<int, std::equal_to<int>> testUA;
+
+public:
+    explicit Test(int size) : testUA(size) {
+    }
+    bool addNewNumber(int number) {
+        testUA.insert(1);
+        return true;
+    }
+};
+
 class Point {
 private:
     int x;
@@ -15,7 +28,8 @@ public:
     }
 
     Point(int x, int y) : x(x), y(y) {}
-    bool operator==(const Point& point) const {
+
+    bool operator==(const Point &point) const {
         return (point.x == this->x) && (point.y == this->y);
     }
 
@@ -28,11 +42,11 @@ void testFilter() {
     typedef UniqueArray<Point, std::equal_to<Point>> PointUA;
     int size = 3;
     Point point = Point();
-    Point point1 = Point(1,1);
+    Point point1 = Point(1, 1);
     Point point100 = Point(100, 100);
     class LessThan5 : public PointUA::Filter {
     public:
-        virtual bool operator() (Point const & element) const override {
+        virtual bool operator()(Point const &element) const override {
             return element.getX() < 5;
         }
     };
@@ -47,7 +61,15 @@ void testFilter() {
 
 }
 
+void testSimpleMember() {
+    Test myTest = Test(2);
+    if (myTest.addNewNumber(5)) {
+        cout << "number added successfully" << endl;
+    }
+}
+
 int main() {
-    testFilter();
+    //testFilter();
+    testSimpleMember();
     return 0;
 }
