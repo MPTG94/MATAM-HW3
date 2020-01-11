@@ -7,6 +7,7 @@
 
 using namespace MtmParkingLot;
 
+
 MtmParkingLot::ParkingLot::ParkingLot(unsigned int *parkingBlockSizes)
         : motorbikeArray(parkingBlockSizes[0]),
           handicapArray(parkingBlockSizes[1]),
@@ -36,21 +37,22 @@ ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::enterParking(
 ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::getParkingSpot(
         ParkingLotUtils::LicensePlate licensePlate,
         ParkingLotUtils::ParkingSpot &parkingSpot) const {
-    Time time = Time(0);
-    Vehicle newCar = Vehicle(licensePlate, time, CAR);
-    unsigned  int indexInCarArray = this->carArray.contains(newCar);
-    indexInCarArray = this->carArray.contains(newCar);
-    if (indexInCarArray != -1) {
-
+    if(genericGetSpot(carArray, CAR, licensePlate,
+            parkingSpot) == SUCCESS ||
+    genericGetSpot(motorbikeArray, MOTORBIKE, licensePlate,
+               parkingSpot) == SUCCESS ||
+        genericGetSpot(handicapArray, HANDICAPPED,
+                licensePlate,parkingSpot) == SUCCESS) {
+        return SUCCESS;
+    } else {
+        return VEHICLE_NOT_FOUND;
     }
-
-    return VEHICLE_ALREADY_PARKED;
-}
 
 ParkingLotUtils::ParkingResult
 MtmParkingLot::ParkingLot::exitParking(
         ParkingLotUtils::LicensePlate licensePlate,
         ParkingLotUtils::Time exitTime) {
+
     return VEHICLE_ALREADY_PARKED;
 }
 
@@ -160,7 +162,7 @@ ParkingResult ParkingLot::insertNewVehicle(UniqueArray
     } else {
         if (array.getSize() - array.getCount() > 0) {
             unsigned int newIndex = array.insert(newVehicle);
-            ParkingLotPrinter::printVehicle(&os, vehicleType,
+            ParkingLotPrinter::printVehicle(os, vehicleType,
                                             newVehicle.getLicensePlate(), entranceTime);
             ParkingSpot spot = ParkingSpot(vehicleType, newIndex);
             ParkingLotPrinter::printEntrySuccess(&os, spot);
@@ -170,4 +172,20 @@ ParkingResult ParkingLot::insertNewVehicle(UniqueArray
             return NO_EMPTY_SPOT;
         }
     }
+}
+
+ParkingResult ParkingLot::genericGetSpot(UniqueArray<Vehicle,
+        std::equal_to<Vehicle>> array, VehicleType vehicleType,
+        LicensePlate licensePlate, ParkingSpot &parkingSpot) {
+    for (int i = 0 ; i <array.getSize(); i++) {
+        Vehicle* currentVehicle = array.getElementByIndex(i);
+        if (currentVehicle != nullptr) {
+            if (currentVehicle->getLicensePlate() == licensePlate) {
+                ParkingSpot newSpot = ParkingSpot(CAR, i);
+                parkingSpot = newSpot;
+                return SUCCESS;
+            }
+        }
+    }
+    return VEHICLE_ALREADY_PARKED;
 }

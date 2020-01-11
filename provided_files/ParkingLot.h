@@ -24,6 +24,10 @@ namespace MtmParkingLot {
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
                                               LicensePlate licensePlate, Time entranceTime, const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &carArray);
+        static ParkingResult genericGetSpot (UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> array, VehicleType vehicleType,
+                                             LicensePlate licensePlate,
+                                                ParkingSpot &parkingSpot);
 
     public:
         /**
