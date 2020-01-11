@@ -20,10 +20,10 @@ namespace MtmParkingLot {
         UniqueArray<Vehicle, std::equal_to<Vehicle>> handicapArray;
         UniqueArray<Vehicle, std::equal_to<Vehicle>> carArray;
 
-        static ParkingResult insertNewVehicle (UniqueArray<Vehicle,
+        static ParkingResult insertNewVehicle(UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
-                LicensePlate licensePlate, Time entranceTime, const UniqueArray<Vehicle,
-                std::equal_to<Vehicle>>& carArray);
+                                              LicensePlate licensePlate, Time entranceTime, const UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> &carArray);
 
     public:
         /**
@@ -32,6 +32,7 @@ namespace MtmParkingLot {
          * different parking blocks
          */
         explicit ParkingLot(unsigned int parkingBlockSizes[]);
+
         /**
          * Deletes an instance of ParkingLot
          */
@@ -50,7 +51,7 @@ namespace MtmParkingLot {
          * Prints that the vehicle is already parked if the is inside the lot
          * and returns ALREADY_PARKED
          */
-        ParkingResult enterParking(VehicleType vehicleType, const LicensePlate& licensePlate, Time entranceTime);
+        ParkingResult enterParking(VehicleType vehicleType, const LicensePlate &licensePlate, Time entranceTime);
         // TODO: sivan :) :-) =) :D
         /**
          * Removes a vehicle from the parking lot
@@ -73,7 +74,7 @@ namespace MtmParkingLot {
          * spot of the input vehicle, returns SUCCESS if the vehicle was found
          * and VEHICLE_NOT_FOUND otherwise
          */
-        ParkingResult getParkingSpot(LicensePlate licensePlate, ParkingSpot& parkingSpot) const;
+        ParkingResult getParkingSpot(LicensePlate licensePlate, ParkingSpot &parkingSpot) const;
         // TODO: sivan :) :-) =) :D
         /**
          * Checks all of the vehicles in the parking lot and gives them a fine
@@ -82,13 +83,15 @@ namespace MtmParkingLot {
          * @param inspectionTime The time at which the inspector visits the lot
          */
         void inspectParkingLot(Time inspectionTime);
+
         /**
          * A print function of the parking lot
          * @param os An ostream reference to write to stdout
          * @param parkingLot The parking lot object to print
          * @return An ostream to continue printing
          */
-        friend ostream& operator<<(ostream& os, const ParkingLot& parkingLot);
+        friend ostream &operator<<(ostream &os, const ParkingLot &parkingLot);
+
         /**
          * Receives a vehicle types and calls the correct printing function for
          * the input type
@@ -96,25 +99,28 @@ namespace MtmParkingLot {
          * @param type
          * @return
          */
-        ostream & printVehiclesOfType(ostream& os, VehicleType type) const;
+        ostream &printVehiclesOfType(ostream &os, VehicleType type) const;
+
         /**
          * Prints all Motorbikes in the parking lot
          * @param os An ostream reference to write to stdout
          * @return An ostream to continue printing
          */
-        ostream& printMotorbikes(ostream& os) const;
+        ostream &printMotorbikes(ostream &os) const;
+
         /**
          * Prints all Handicapped cars in the parking lot
          * @param os An ostream reference to write to stdout
          * @return An ostream to continue printing
          */
-        ostream& printHandicapped(ostream& os) const;
+        ostream &printHandicapped(ostream &os) const;
+
         /**
          * Prints all cars in the parking lot
          * @param os An ostream reference to write to stdout
          * @return An ostream to continue printing
          */
-        ostream& printCars(ostream& os) const;
+        ostream &printCars(ostream &os) const;
 
     };
 
