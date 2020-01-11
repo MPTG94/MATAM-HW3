@@ -21,7 +21,7 @@ MtmParkingLot::ParkingLot::~ParkingLot() = default;
 
 ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::enterParking(
         ParkingLotUtils::VehicleType vehicleType,
-        const ParkingLotUtils::LicensePlate& licensePlate,
+        ParkingLotUtils::LicensePlate& licensePlate,
         ParkingLotUtils::Time entranceTime) {
     if (vehicleType==MOTORBIKE) {
         return insertNewVehicle(motorbikeArray, vehicleType,
@@ -54,7 +54,7 @@ ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::getParkingSpot(
 
 ParkingLotUtils::ParkingResult
 MtmParkingLot::ParkingLot::exitParking(
-        const ParkingLotUtils::LicensePlate& licensePlate,
+        ParkingLotUtils::LicensePlate licensePlate,
         ParkingLotUtils::Time exitTime) {
     ParkingSpot spot;
     if (getParkingSpot(licensePlate, spot) == VEHICLE_NOT_FOUND){

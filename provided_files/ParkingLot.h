@@ -61,7 +61,7 @@ namespace MtmParkingLot {
          * Prints that the vehicle is already parked if the is inside the lot
          * and returns ALREADY_PARKED
          */
-        ParkingResult enterParking(VehicleType vehicleType, const LicensePlate &licensePlate, Time entranceTime);
+        ParkingResult enterParking(VehicleType vehicleType,LicensePlate &licensePlate, Time entranceTime);
         /**
          * Removes a vehicle from the parking lot
          * @param licensePlate The license plate of the vehicle to remove
@@ -72,7 +72,7 @@ namespace MtmParkingLot {
          * Prints that the vehicle was failed to remove and returns
          * VEHICLE_NOT_FOUND otherwise
          */
-        ParkingResult exitParking(const LicensePlate& licensePlate, Time exitTime);
+        ParkingResult exitParking(LicensePlate licensePlate, Time exitTime);
 
         /**
          * Receives a license plate of a vehicle and returns it's parking spot
