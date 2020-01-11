@@ -28,6 +28,12 @@ namespace MtmParkingLot {
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
                                              LicensePlate licensePlate,
                                                 ParkingSpot &parkingSpot);
+        static ParkingResult genericExitParking (UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> array,VehicleType vehicleType,
+                                                 LicensePlate licensePlate,
+                                                 Time exitTime);
+        static int genericInspectParkingLot (Time currentTime, UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> array);
 
     public:
         /**
@@ -41,7 +47,7 @@ namespace MtmParkingLot {
          * Deletes an instance of ParkingLot
          */
         ~ParkingLot();
-        // TODO: sivan :) :-) =) :D
+
         /**
          * Registers a new vehicle to the parking lot
          * @param vehicleType The type of the the vehicle based on the
@@ -56,7 +62,6 @@ namespace MtmParkingLot {
          * and returns ALREADY_PARKED
          */
         ParkingResult enterParking(VehicleType vehicleType, const LicensePlate &licensePlate, Time entranceTime);
-        // TODO: sivan :) :-) =) :D
         /**
          * Removes a vehicle from the parking lot
          * @param licensePlate The license plate of the vehicle to remove
@@ -67,8 +72,8 @@ namespace MtmParkingLot {
          * Prints that the vehicle was failed to remove and returns
          * VEHICLE_NOT_FOUND otherwise
          */
-        ParkingResult exitParking(LicensePlate licensePlate, Time exitTime);
-        // TODO: sivan :) :-) =) :D
+        ParkingResult exitParking(const LicensePlate& licensePlate, Time exitTime);
+
         /**
          * Receives a license plate of a vehicle and returns it's parking spot
          * @param licensePlate The license plate of the vehicle to get it's
@@ -79,7 +84,6 @@ namespace MtmParkingLot {
          * and VEHICLE_NOT_FOUND otherwise
          */
         ParkingResult getParkingSpot(LicensePlate licensePlate, ParkingSpot &parkingSpot) const;
-        // TODO: sivan :) :-) =) :D
         /**
          * Checks all of the vehicles in the parking lot and gives them a fine
          * based on the input inspection time if necessary

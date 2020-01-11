@@ -19,10 +19,10 @@ private:
     VehicleType type;
     bool fined = false;
 
-    static unsigned int calculatingCarParkingPrice(unsigned int
+    static int calculatingCarParkingPrice(unsigned int
                                                    totalTimeInHours,
                                                    unsigned int oneHour,
-                                                   unsigned int price);
+                                                   int price);
 
     static unsigned int calculateMotorbikeParkingPrice(unsigned int
                                                        totalTimeInHours,
@@ -42,7 +42,7 @@ public:
 
     void markAsFined();
 
-    unsigned int calculateParkingPrice(Time exitTime);
+    int calculateParkingPrice(Time exitTime);
 
     bool operator==(const Vehicle &vehicle) const;
 

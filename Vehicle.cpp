@@ -40,7 +40,7 @@ void Vehicle::markAsFined() {
 }
 
 unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
-    unsigned int price = 0;
+    int price = 0;
     VehicleType CurrentType = this->getVehicleType();
     unsigned int oneHour = 1;
     Time totalTime = exitTime - this->entranceTime;
@@ -62,9 +62,9 @@ unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
     return price;
 }
 
-unsigned int Vehicle::calculatingCarParkingPrice(unsigned int totalTimeInHours,
+int Vehicle::calculatingCarParkingPrice(unsigned int totalTimeInHours,
                                                  unsigned int oneHour,
-                                                 unsigned int price) {
+                                                 int price) {
     if (totalTimeInHours <= oneHour) {
         price = PRICE_FOR_FIRST_HOUR_CAR;
     } else if (totalTimeInHours > oneHour && totalTimeInHours <= 6 * oneHour) {
