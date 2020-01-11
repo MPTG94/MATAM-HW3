@@ -20,6 +20,11 @@ namespace MtmParkingLot {
         UniqueArray<Vehicle, std::equal_to<Vehicle>> handicapArray;
         UniqueArray<Vehicle, std::equal_to<Vehicle>> carArray;
 
+        static ParkingResult insertNewVehicle (UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> array, VehicleType vehicleType,
+                LicensePlate licensePlate, Time entranceTime, const UniqueArray<Vehicle,
+                std::equal_to<Vehicle>>& carArray);
+
     public:
         /**
          * Creates a new ParkingLot object based on the block sizes specified
@@ -45,7 +50,7 @@ namespace MtmParkingLot {
          * Prints that the vehicle is already parked if the is inside the lot
          * and returns ALREADY_PARKED
          */
-        ParkingResult enterParking(VehicleType vehicleType, LicensePlate licensePlate, Time entranceTime);
+        ParkingResult enterParking(VehicleType vehicleType, const LicensePlate& licensePlate, Time entranceTime);
         // TODO: sivan :) :-) =) :D
         /**
          * Removes a vehicle from the parking lot
