@@ -24,16 +24,19 @@ namespace MtmParkingLot {
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
                                               LicensePlate licensePlate, Time entranceTime, const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &carArray);
-        static ParkingResult genericGetSpot (UniqueArray<Vehicle,
+
+        static ParkingResult genericGetSpot(const UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> &array, VehicleType vehicleType,
+                                            const LicensePlate &licensePlate,
+                                            ParkingSpot &parkingSpot);
+
+        static ParkingResult genericExitParking(UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
-                                             LicensePlate licensePlate,
-                                                ParkingSpot &parkingSpot);
-        static ParkingResult genericExitParking (UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> array,VehicleType vehicleType,
-                                                 LicensePlate licensePlate,
-                                                 Time exitTime);
-        static int genericInspectParkingLot (Time currentTime, UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> array);
+                                                LicensePlate licensePlate,
+                                                Time exitTime);
+
+        static int genericInspectParkingLot(Time currentTime, const UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> &array);
 
     public:
         /**
@@ -61,7 +64,8 @@ namespace MtmParkingLot {
          * Prints that the vehicle is already parked if the is inside the lot
          * and returns ALREADY_PARKED
          */
-        ParkingResult enterParking(VehicleType vehicleType,LicensePlate &licensePlate, Time entranceTime);
+        ParkingResult enterParking(VehicleType vehicleType, LicensePlate &licensePlate, Time entranceTime);
+
         /**
          * Removes a vehicle from the parking lot
          * @param licensePlate The license plate of the vehicle to remove
@@ -84,6 +88,7 @@ namespace MtmParkingLot {
          * and VEHICLE_NOT_FOUND otherwise
          */
         ParkingResult getParkingSpot(LicensePlate licensePlate, ParkingSpot &parkingSpot) const;
+
         /**
          * Checks all of the vehicles in the parking lot and gives them a fine
          * based on the input inspection time if necessary
@@ -114,22 +119,8 @@ namespace MtmParkingLot {
          * @param os An ostream reference to write to stdout
          * @return An ostream to continue printing
          */
-        ostream &printMotorbikes(ostream &os) const;
-
-        /**
-         * Prints all Handicapped cars in the parking lot
-         * @param os An ostream reference to write to stdout
-         * @return An ostream to continue printing
-         */
-        ostream &printHandicapped(ostream &os) const;
-
-        /**
-         * Prints all cars in the parking lot
-         * @param os An ostream reference to write to stdout
-         * @return An ostream to continue printing
-         */
-        ostream &printCars(ostream &os) const;
-
+        static ostream &genericPrintVehicles(ostream &os, const UniqueArray<Vehicle,
+                std::equal_to<Vehicle>> &array, VehicleType type);
     };
 
 }
