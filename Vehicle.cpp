@@ -1,20 +1,19 @@
 //
 // Created by Mor on 09/01/2020.
 //
-#define PRICE_FOR_HANDICAPPED 15
-#define PRICE_FOR_FIRST_HOUR_MOTORBIKE 10
-#define PRICE_FOR_EXTRA_HOURS_MOTORBIKE 5
-#define MAX_PRICE_FOR_MOTORBIKE 35
-#define PRICE_FOR_FIRST_HOUR_CAR 20
-#define PRICE_FOR_EXTRA_HOURS_CAR 10
-#define MAX_PRICE_FOR_CAR 70
-#define FINE 250
-
 #include "Vehicle.h"
 
 #include <utility>
 
 using std::move;
+const int PRICE_FOR_HANDICAPPED = 15;
+const int PRICE_FOR_FIRST_HOUR_MOTORBIKE = 10;
+const int PRICE_FOR_EXTRA_HOURS_MOTORBIKE = 5;
+const int MAX_PRICE_FOR_MOTORBIKE = 35;
+const int PRICE_FOR_FIRST_HOUR_CAR = 20;
+const int PRICE_FOR_EXTRA_HOURS_CAR = 10;
+const int MAX_PRICE_FOR_CAR = 70;
+const int FINE = 250;
 
 Vehicle::Vehicle(string plate, Time entranceTime, VehicleType type) :
         plate(move(plate)), entranceTime(entranceTime), type(type) {}
