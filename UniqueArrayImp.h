@@ -169,7 +169,8 @@ int UniqueArray<Element, Compare>::getHistogramValueAtIndex(int index) {
 }
 
 template<class Element, class Compare>
-Element *UniqueArray<Element, Compare>::getElementByIndex(int index) const {
+Element *
+UniqueArray<Element, Compare>::getElementByIndex(unsigned int index) const {
     if (this->histogram[index] == 1) {
         return this->array[index];
     }

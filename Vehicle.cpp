@@ -34,6 +34,15 @@ Time Vehicle::getEntranceTime() {
     return this->entranceTime;
 }
 
+ParkingSpot Vehicle::getParkingSpot() {
+    return this->spot;
+}
+
+bool Vehicle::setParkingSpot(ParkingSpot parkingSpot) {
+    this->spot = parkingSpot;
+    return true;
+}
+
 void Vehicle::markAsFined() {
     this->fined = true;
 }
@@ -45,25 +54,26 @@ int Vehicle::calculateParkingPrice(Time exitTime) {
     Time totalTime = exitTime - this->entranceTime;
     unsigned int totalTimeInHours = totalTime.toHours();
     if (totalTimeInHours == 0) {
-        return (int)price;
+        return (int) price;
     }
     if (CurrentType == HANDICAPPED) {
         price = PRICE_FOR_HANDICAPPED;
     } else if (CurrentType == MOTORBIKE) {
-        price = (int)calculateMotorbikeParkingPrice(totalTimeInHours, oneHour,
-                                               price);
+        price = (int) calculateMotorbikeParkingPrice(totalTimeInHours, oneHour,
+                                                     price);
     } else {
-        price = (int)calculatingCarParkingPrice(totalTimeInHours, oneHour, price);
+        price = (int) calculatingCarParkingPrice(totalTimeInHours, oneHour,
+                                                 price);
     }
     if (this->isFined()) {
         price += FINE;
     }
-    return (int)price;
+    return (int) price;
 }
 
 int Vehicle::calculatingCarParkingPrice(unsigned int totalTimeInHours,
-                                                 unsigned int oneHour,
-                                                 unsigned int price) {
+                                        unsigned int oneHour,
+                                        unsigned int price) {
     if (totalTimeInHours <= oneHour) {
         price = PRICE_FOR_FIRST_HOUR_CAR;
     } else if (totalTimeInHours > oneHour && totalTimeInHours <= 6 * oneHour) {

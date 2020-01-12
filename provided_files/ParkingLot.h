@@ -2,6 +2,7 @@
 #define MTMPARKINGLOT_PARKINGLOT_H
 
 #include <functional>
+#include <vector>
 #include "ParkingLotTypes.h"
 #include "Time.h"
 #include "ParkingSpot.h"
@@ -22,8 +23,10 @@ namespace MtmParkingLot {
 
         static ParkingResult insertNewVehicle(UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
-                                              LicensePlate licensePlate, Time entranceTime, const UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> &carArray);
+                                              LicensePlate licensePlate,
+                                              Time entranceTime,
+                                              const UniqueArray<Vehicle,
+                                                      std::equal_to<Vehicle>> &carArray);
 
         static ParkingResult genericGetSpot(const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &array, VehicleType vehicleType,
@@ -32,10 +35,11 @@ namespace MtmParkingLot {
 
         static ParkingResult genericExitParking(UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
-                                                LicensePlate licensePlate,
+                                                const LicensePlate &licensePlate,
                                                 Time exitTime);
 
-        static int genericInspectParkingLot(Time currentTime, const UniqueArray<Vehicle,
+        static int
+        genericInspectParkingLot(Time currentTime, const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &array);
 
     public:
@@ -64,7 +68,9 @@ namespace MtmParkingLot {
          * Prints that the vehicle is already parked if the is inside the lot
          * and returns ALREADY_PARKED
          */
-        ParkingResult enterParking(VehicleType vehicleType, LicensePlate &licensePlate, Time entranceTime);
+        ParkingResult
+        enterParking(VehicleType vehicleType, LicensePlate &licensePlate,
+                     Time entranceTime);
 
         /**
          * Removes a vehicle from the parking lot
@@ -87,7 +93,8 @@ namespace MtmParkingLot {
          * spot of the input vehicle, returns SUCCESS if the vehicle was found
          * and VEHICLE_NOT_FOUND otherwise
          */
-        ParkingResult getParkingSpot(LicensePlate licensePlate, ParkingSpot &parkingSpot) const;
+        ParkingResult getParkingSpot(LicensePlate licensePlate,
+                                     ParkingSpot &parkingSpot) const;
 
         /**
          * Checks all of the vehicles in the parking lot and gives them a fine
@@ -96,6 +103,10 @@ namespace MtmParkingLot {
          * @param inspectionTime The time at which the inspector visits the lot
          */
         void inspectParkingLot(Time inspectionTime);
+
+        vector<Vehicle>
+        fillVectorFromArray(vector<Vehicle> &vehicleVector,
+                            VehicleType type) const;
 
         /**
          * A print function of the parking lot
@@ -119,8 +130,9 @@ namespace MtmParkingLot {
          * @param os An ostream reference to write to stdout
          * @return An ostream to continue printing
          */
-        static ostream &genericPrintVehicles(ostream &os, const UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> &array, VehicleType type);
+        static ostream &
+        genericPrintVehicles(ostream &os, Vehicle vehicle,
+                             VehicleType type);
     };
 
 }

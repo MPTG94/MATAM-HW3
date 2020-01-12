@@ -17,6 +17,7 @@ private:
     string plate;
     Time entranceTime;
     VehicleType type;
+    ParkingSpot spot;
     bool fined = false;
 
     static int calculatingCarParkingPrice(unsigned int
@@ -37,6 +38,10 @@ public:
     VehicleType getVehicleType();
 
     Time getEntranceTime();
+
+    ParkingSpot getParkingSpot();
+
+    bool setParkingSpot(ParkingSpot parkingSpot);
 
     bool isFined();
 

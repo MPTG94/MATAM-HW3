@@ -90,7 +90,7 @@ public:
      * @param index The index of the object in the UniqueArray
      * @return A pointer of the object at the input index
      */
-    Element *getElementByIndex(int index) const;
+    Element *getElementByIndex(unsigned int index) const;
 
     class Filter {
     public:
