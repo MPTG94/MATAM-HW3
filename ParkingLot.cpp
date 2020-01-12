@@ -2,6 +2,7 @@
 // Created by Mor on 09/01/2020.
 //
 #include <algorithm>
+#include <utility>
 #include <vector>
 #include <utility>
 #include "provided_files/ParkingLot.h"
@@ -147,69 +148,62 @@ vector<Vehicle> ParkingLot::fillVectorFromArray(vector<Vehicle> &vehicleVector,
 ParkingResult ParkingLot::insertNonHandicap(VehicleType vehicleType,
                                             LicensePlate licensePlate,
                                             Time entranceTime) {
+    if (vehicleType == MOTORBIKE) {
+        return insertMotorbike(vehicleType, std::move(licensePlate), entranceTime);
+    } else {
+        return insertCar(vehicleType, std::move(licensePlate), entranceTime);
+    }
+}
+
+ParkingResult ParkingLot::insertCar(VehicleType vehicleType,
+                                    LicensePlate licensePlate,
+                                    Time entranceTime) {
     Vehicle newVehicle = Vehicle(std::move(licensePlate), entranceTime,
                                  vehicleType);
-    if (vehicleType == MOTORBIKE) {
-        int isVehicleInArray = this->motorbikeArray.contains(newVehicle);
-        if (isVehicleInArray != -1) {
-            // Bike is already in lot
-            Vehicle *oldVehicle = this->motorbikeArray.getElementByIndex(
-                    isVehicleInArray);
-            ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                            oldVehicle->getLicensePlate(),
-                                            oldVehicle->getEntranceTime());
-            ParkingLotPrinter::printEntryFailureAlreadyParked(cout,
-                                                              oldVehicle->getParkingSpot());
-            return VEHICLE_ALREADY_PARKED;
-        } else {
-            if (motorbikeArray.getSize() - motorbikeArray.getCount() > 0) {
-                unsigned int newIndex = motorbikeArray.insert(newVehicle);
-                ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                                newVehicle.getLicensePlate(),
-                                                entranceTime);
-                ParkingSpot spot = ParkingSpot(vehicleType, newIndex);
-                motorbikeArray.getElementByIndex(newIndex)->setParkingSpot(
-                        spot);
-                ParkingLotPrinter::printEntrySuccess(cout, spot);
-                return SUCCESS;
-            } else {
-                ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                                newVehicle.getLicensePlate(),
-                                                entranceTime);
-                ParkingLotPrinter::printEntryFailureNoSpot(cout);
-                return NO_EMPTY_SPOT;
-            }
-        }
+    int isVehicleInArray = this->carArray.contains(newVehicle);
+    if (isVehicleInArray != -1) {
+        // Car is already in lot
+        Vehicle *oldVehicle = this->carArray.getElementByIndex(
+                isVehicleInArray);
+        printVehicleParkedByVehicle(oldVehicle);
+        return VEHICLE_ALREADY_PARKED;
     } else {
-        int isVehicleInArray = this->carArray.contains(newVehicle);
-        if (isVehicleInArray != -1) {
-            // Car is already in lot
-            Vehicle *oldVehicle = this->carArray.getElementByIndex(
-                    isVehicleInArray);
-            ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                            oldVehicle->getLicensePlate(),
-                                            oldVehicle->getEntranceTime());
-            ParkingLotPrinter::printEntryFailureAlreadyParked(cout,
-                                                              oldVehicle->getParkingSpot());
-            return VEHICLE_ALREADY_PARKED;
+        if (carArray.getSize() - carArray.getCount() > 0) {
+            unsigned int newIndex = carArray.insert(newVehicle);
+            ParkingSpot spot = ParkingSpot(vehicleType, newIndex);
+            printVehicleEntryByVehicle(newVehicle, spot);
+            carArray.getElementByIndex(newIndex)->setParkingSpot(spot);
+            return SUCCESS;
         } else {
-            if (carArray.getSize() - carArray.getCount() > 0) {
-                unsigned int newIndex = carArray.insert(newVehicle);
-                ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                                newVehicle.getLicensePlate(),
-                                                entranceTime);
-                ParkingSpot spot = ParkingSpot(vehicleType, newIndex);
-                carArray.getElementByIndex(newIndex)->setParkingSpot(
-                        spot);
-                ParkingLotPrinter::printEntrySuccess(cout, spot);
-                return SUCCESS;
-            } else {
-                ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                                newVehicle.getLicensePlate(),
-                                                entranceTime);
-                ParkingLotPrinter::printEntryFailureNoSpot(cout);
-                return NO_EMPTY_SPOT;
-            }
+            printNoRoomForVehicleByVehicle(newVehicle);
+            return NO_EMPTY_SPOT;
+        }
+    }
+}
+
+ParkingResult ParkingLot::insertMotorbike(VehicleType vehicleType,
+                                          LicensePlate licensePlate,
+                                          Time entranceTime) {
+    Vehicle newVehicle = Vehicle(std::move(licensePlate), entranceTime,
+                                 vehicleType);
+    int isVehicleInArray = this->motorbikeArray.contains(newVehicle);
+    if (isVehicleInArray != -1) {
+        // Bike is already in lot
+        Vehicle *oldVehicle = this->motorbikeArray.getElementByIndex(
+                isVehicleInArray);
+        printVehicleParkedByVehicle(oldVehicle);
+        return VEHICLE_ALREADY_PARKED;
+    } else {
+        if (motorbikeArray.getSize() - motorbikeArray.getCount() > 0) {
+            unsigned int newIndex = motorbikeArray.insert(newVehicle);
+            ParkingSpot spot = ParkingSpot(vehicleType, newIndex);
+            printVehicleEntryByVehicle(newVehicle, spot);
+            motorbikeArray.getElementByIndex(newIndex)->setParkingSpot(
+                    spot);
+            return SUCCESS;
+        } else {
+            printNoRoomForVehicleByVehicle(newVehicle);
+            return NO_EMPTY_SPOT;
         }
     }
 }
@@ -224,54 +218,44 @@ ParkingResult ParkingLot::insertHandicap(VehicleType vehicleType,
     if (isInHandicapArray != -1) {
         Vehicle *oldVehicle = this->handicapArray.getElementByIndex(
                 isInHandicapArray);
-        ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                        oldVehicle->getLicensePlate(),
-                                        oldVehicle->getEntranceTime());
-        ParkingLotPrinter::printEntryFailureAlreadyParked(cout,
-                                                          oldVehicle->getParkingSpot());
+        printVehicleParkedByVehicle(oldVehicle);
         return VEHICLE_ALREADY_PARKED;
     } else if (isInCarArray != -1) {
         Vehicle *oldVehicle = this->carArray.getElementByIndex(
                 isInHandicapArray);
-        ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                        oldVehicle->getLicensePlate(),
-                                        oldVehicle->getEntranceTime());
-        ParkingLotPrinter::printEntryFailureAlreadyParked(cout,
-                                                          oldVehicle->getParkingSpot());
+        printVehicleParkedByVehicle(oldVehicle);
         return VEHICLE_ALREADY_PARKED;
     } else {
         // Car is not in any lot
         if (this->handicapArray.getSize() - this->handicapArray.getCount() >
             0) {
             // Car can be placed in this lot.
-            unsigned int newIndex = handicapArray.insert(newVehicle);
-            ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                            newVehicle.getLicensePlate(),
-                                            entranceTime);
-            ParkingSpot spot = ParkingSpot(vehicleType, newIndex);
-            handicapArray.getElementByIndex(newIndex)->setParkingSpot(
-                    spot);
-            ParkingLotPrinter::printEntrySuccess(cout, spot);
-            return SUCCESS;
+            return insertHandicapToHandicapBlock(newVehicle);
         } else if (this->carArray.getSize() - this->carArray.getCount() > 0) {
             // Car can be placed in this lot.
-            unsigned int newIndex = carArray.insert(newVehicle);
-            ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                            newVehicle.getLicensePlate(),
-                                            entranceTime);
-            ParkingSpot spot = ParkingSpot(CAR, newIndex);
-            carArray.getElementByIndex(newIndex)->setParkingSpot(
-                    spot);
-            ParkingLotPrinter::printEntrySuccess(cout, spot);
-            return SUCCESS;
+            return insertHandicapToCarBlock(newVehicle);
         } else {
-            ParkingLotPrinter::printVehicle(cout, vehicleType,
-                                            newVehicle.getLicensePlate(),
-                                            entranceTime);
-            ParkingLotPrinter::printEntryFailureNoSpot(cout);
+            printNoRoomForVehicleByVehicle(newVehicle);
             return NO_EMPTY_SPOT;
         }
     }
+}
+
+ParkingResult ParkingLot::insertHandicapToHandicapBlock(const Vehicle& vehicle) {
+    unsigned int newIndex = handicapArray.insert(vehicle);
+    ParkingSpot spot = ParkingSpot(HANDICAPPED, newIndex);
+    printVehicleEntryByVehicle(vehicle, spot);
+    handicapArray.getElementByIndex(newIndex)->setParkingSpot(
+            spot);
+}
+
+ParkingResult ParkingLot::insertHandicapToCarBlock(const Vehicle& vehicle) {
+    unsigned int newIndex = carArray.insert(vehicle);
+    ParkingSpot spot = ParkingSpot(CAR, newIndex);
+    printVehicleEntryByVehicle(vehicle, spot);
+    carArray.getElementByIndex(newIndex)->setParkingSpot(
+            spot);
+    return SUCCESS;
 }
 
 ParkingResult ParkingLot::genericGetSpot(const UniqueArray<Vehicle,
@@ -300,13 +284,7 @@ ParkingResult ParkingLot::removeNonHandicap(VehicleType type,
                 if (currentVehicle->getLicensePlate() == licensePlate) {
                     int bill = currentVehicle->calculateParkingPrice(
                             exitTime);
-                    ParkingLotPrinter::printVehicle(cout,
-                                                    currentVehicle->getVehicleType(),
-                                                    currentVehicle->getLicensePlate(),
-                                                    currentVehicle->getEntranceTime());
-                    ParkingLotPrinter::printExitSuccess(cout,
-                                                        currentVehicle->getParkingSpot(),
-                                                        exitTime, bill);
+                    printVehicleExitByVehicle(currentVehicle, exitTime, bill);
                     motorbikeArray.remove(*currentVehicle);
                     return SUCCESS;
                 }
@@ -319,13 +297,7 @@ ParkingResult ParkingLot::removeNonHandicap(VehicleType type,
                 if (currentVehicle->getLicensePlate() == licensePlate) {
                     int bill = currentVehicle->calculateParkingPrice(
                             exitTime);
-                    ParkingLotPrinter::printVehicle(cout,
-                                                    currentVehicle->getVehicleType(),
-                                                    currentVehicle->getLicensePlate(),
-                                                    currentVehicle->getEntranceTime());
-                    ParkingLotPrinter::printExitSuccess(cout,
-                                                        currentVehicle->getParkingSpot(),
-                                                        exitTime, bill);
+                    printVehicleExitByVehicle(currentVehicle, exitTime, bill);
                     carArray.remove(*currentVehicle);
                     return SUCCESS;
                 }
@@ -333,6 +305,40 @@ ParkingResult ParkingLot::removeNonHandicap(VehicleType type,
         }
     }
     return VEHICLE_NOT_FOUND;
+}
+
+void ParkingLot::printVehicleEntryByVehicle(Vehicle vehicle, ParkingSpot spot) {
+    ParkingLotPrinter::printVehicle(cout, vehicle.getVehicleType(),
+                                    vehicle.getLicensePlate(),
+                                    vehicle.getEntranceTime());
+    ParkingLotPrinter::printEntrySuccess(cout, spot);
+}
+
+void ParkingLot::printNoRoomForVehicleByVehicle(Vehicle vehicle) {
+    ParkingLotPrinter::printVehicle(cout, vehicle.getVehicleType(),
+                                    vehicle.getLicensePlate(),
+                                    vehicle.getEntranceTime());
+    ParkingLotPrinter::printEntryFailureNoSpot(cout);
+}
+
+void ParkingLot::printVehicleParkedByVehicle(Vehicle *vehicle) {
+    ParkingLotPrinter::printVehicle(cout, vehicle->getVehicleType(),
+                                    vehicle->getLicensePlate(),
+                                    vehicle->getEntranceTime());
+    ParkingLotPrinter::printEntryFailureAlreadyParked(
+            cout,
+            vehicle->getParkingSpot());
+}
+
+void ParkingLot::printVehicleExitByVehicle(Vehicle *vehicle, Time exitTime,
+                                           int bill) {
+    ParkingLotPrinter::printVehicle(cout,
+                                    vehicle->getVehicleType(),
+                                    vehicle->getLicensePlate(),
+                                    vehicle->getEntranceTime());
+    ParkingLotPrinter::printExitSuccess(cout,
+                                        vehicle->getParkingSpot(),
+                                        exitTime, bill);
 }
 
 ParkingResult ParkingLot::removeHandicap(const LicensePlate &licensePlate,
@@ -343,13 +349,7 @@ ParkingResult ParkingLot::removeHandicap(const LicensePlate &licensePlate,
             if (currentVehicle->getLicensePlate() == licensePlate) {
                 int bill = currentVehicle->calculateParkingPrice(
                         exitTime);
-                ParkingLotPrinter::printVehicle(cout,
-                                                currentVehicle->getVehicleType(),
-                                                currentVehicle->getLicensePlate(),
-                                                currentVehicle->getEntranceTime());
-                ParkingLotPrinter::printExitSuccess(cout,
-                                                    currentVehicle->getParkingSpot(),
-                                                    exitTime, bill);
+                printVehicleExitByVehicle(currentVehicle, exitTime, bill);
                 handicapArray.remove(*currentVehicle);
                 return SUCCESS;
             }
@@ -361,13 +361,7 @@ ParkingResult ParkingLot::removeHandicap(const LicensePlate &licensePlate,
             if (currentVehicle->getLicensePlate() == licensePlate) {
                 int bill = currentVehicle->calculateParkingPrice(
                         exitTime);
-                ParkingLotPrinter::printVehicle(cout,
-                                                currentVehicle->getVehicleType(),
-                                                currentVehicle->getLicensePlate(),
-                                                currentVehicle->getEntranceTime());
-                ParkingLotPrinter::printExitSuccess(cout,
-                                                    currentVehicle->getParkingSpot(),
-                                                    exitTime, bill);
+                printVehicleExitByVehicle(currentVehicle, exitTime, bill);
                 carArray.remove(*currentVehicle);
                 return SUCCESS;
             }

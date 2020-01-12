@@ -25,8 +25,8 @@ namespace MtmParkingLot {
         licensePlate, Time entranceTime);
 
         ParkingResult insertHandicap(VehicleType vehicleType,
-                                                 LicensePlate licensePlate,
-                                                 Time entranceTime);
+                                     LicensePlate licensePlate,
+                                     Time entranceTime);
 
         static ParkingResult genericGetSpot(const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &array, VehicleType vehicleType,
@@ -117,7 +117,30 @@ namespace MtmParkingLot {
 
         ParkingResult
         removeHandicap(const LicensePlate &licensePlate,
-                          Time exitTime);
+                       Time exitTime);
+
+        static void
+        printVehicleExitByVehicle(Vehicle *vehicle, Time exitTime, int bill);
+
+        static void printVehicleEntryByVehicle(Vehicle vehicle, ParkingSpot spot);
+
+        static void printVehicleParkedByVehicle(Vehicle *vehicle);
+
+        static void printNoRoomForVehicleByVehicle(Vehicle vehicle);
+
+        ParkingResult
+        insertMotorbike(VehicleType vehicleType, LicensePlate licensePlate,
+                        Time entranceTime);
+
+        ParkingResult
+        insertCar(VehicleType vehicleType, LicensePlate licensePlate,
+                  Time entranceTime);
+
+        ParkingResult
+        insertHandicapToHandicapBlock(const Vehicle& vehicle);
+
+        ParkingResult
+        insertHandicapToCarBlock(const Vehicle& vehicle);
     };
 
 }

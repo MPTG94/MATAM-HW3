@@ -39,6 +39,15 @@ public:
     unsigned int insert(const Element &element);
 
     /**
+     * Checks if an element exists in the UniqueArray and returns it's index
+     * @param element The element to get it's stored index
+     * @param index An index reference to store the index the Object is stored
+     * in, inside the UniqueArray
+     * @return true if the object exists in the UniqueArray, false otherwise
+     */
+    bool getIndex(const Element &element, unsigned int &index) const;
+
+    /**
      * Returns a pointer to an object from the UniqueArray
      * @param element The object to return from the UniqueArray
      * @return A pointer to the input Object, nullptr if the object does not

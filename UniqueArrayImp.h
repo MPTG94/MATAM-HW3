@@ -73,6 +73,21 @@ unsigned int UniqueArray<Element, Compare>::insert(const Element &element) {
 }
 
 template<class Element, class Compare>
+bool UniqueArray<Element, Compare>::getIndex(const Element &element,
+                                             unsigned int &index) const {
+    Compare compare;
+    for (int i = 0; i < this->size; i++) {
+        if (this->histogram[i] != 0) {
+            if (compare(element, *this->array[i])) {
+                index = i;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+template<class Element, class Compare>
 const Element *
 UniqueArray<Element, Compare>::operator[](const Element &element) const {
     const int position = this->contains(element);
