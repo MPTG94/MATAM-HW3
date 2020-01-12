@@ -25,11 +25,14 @@ ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::enterParking(
         ParkingLotUtils::LicensePlate &licensePlate,
         ParkingLotUtils::Time entranceTime) {
     if (vehicleType == MOTORBIKE) {
-        return insertNonHandicap(MOTORBIKE, licensePlate, entranceTime);
+        return insertNonHandicap(MOTORBIKE,
+                                 licensePlate, entranceTime);
     } else if (vehicleType == CAR) {
-        return insertNonHandicap(CAR, licensePlate, entranceTime);
+        return insertNonHandicap(CAR,
+                                 licensePlate, entranceTime);
     } else {
-        return insertHandicap(HANDICAPPED, licensePlate, entranceTime);
+        return insertHandicap(HANDICAPPED,
+                              licensePlate, entranceTime);
     }
 }
 
@@ -38,8 +41,8 @@ ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::getParkingSpot(
         ParkingLotUtils::ParkingSpot &parkingSpot) const {
     if (genericGetSpot(carArray, CAR, licensePlate,
                        parkingSpot) == SUCCESS ||
-        genericGetSpot(motorbikeArray, MOTORBIKE, licensePlate,
-                       parkingSpot) == SUCCESS ||
+        genericGetSpot(motorbikeArray, MOTORBIKE,
+                       licensePlate, parkingSpot) == SUCCESS ||
         genericGetSpot(handicapArray, HANDICAPPED,
                        licensePlate, parkingSpot) == SUCCESS) {
         return SUCCESS;
@@ -57,8 +60,10 @@ MtmParkingLot::ParkingLot::exitParking(
         ParkingLotPrinter::printExitFailure(cout, licensePlate);
         return VEHICLE_NOT_FOUND;
     }
-    if (this->removeNonHandicap(MOTORBIKE, licensePlate, exitTime) == SUCCESS ||
-        this->removeNonHandicap(CAR, licensePlate, exitTime) == SUCCESS ||
+    if (this->removeNonHandicap(MOTORBIKE, licensePlate,
+                                exitTime) == SUCCESS ||
+        this->removeNonHandicap(CAR, licensePlate,
+                                exitTime) == SUCCESS ||
         this->removeHandicap(licensePlate, exitTime) == SUCCESS) {
         return SUCCESS;
     }
@@ -69,9 +74,12 @@ MtmParkingLot::ParkingLot::exitParking(
 void MtmParkingLot::ParkingLot::inspectParkingLot(
         ParkingLotUtils::Time inspectionTime) {
     int fineCounter = 0;
-    fineCounter += genericInspectParkingLot(inspectionTime, carArray);
-    fineCounter += genericInspectParkingLot(inspectionTime, motorbikeArray);
-    fineCounter += genericInspectParkingLot(inspectionTime, handicapArray);
+    fineCounter += genericInspectParkingLot(inspectionTime,
+                                            carArray);
+    fineCounter += genericInspectParkingLot(inspectionTime,
+                                            motorbikeArray);
+    fineCounter += genericInspectParkingLot(inspectionTime,
+                                            handicapArray);
     ParkingLotPrinter::printInspectionResult(cout, inspectionTime,
                                              fineCounter);
 }
@@ -86,9 +94,12 @@ std::ostream
 &MtmParkingLot::operator<<(std::ostream &os,
                            const MtmParkingLot::ParkingLot &parkingLot) {
     vector<Vehicle> vehicleVector = vector<Vehicle>();
-    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector, MOTORBIKE);
-    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector, HANDICAPPED);
-    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector, CAR);
+    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
+                                                   MOTORBIKE);
+    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
+                                                   HANDICAPPED);
+    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
+                                                   CAR);
     ParkingLotPrinter::printParkingLotTitle(os);
     sort(vehicleVector.begin(), vehicleVector.end(), CompareVehicles());
     for (int i = 0; i < vehicleVector.size(); i++) {
@@ -131,19 +142,6 @@ vector<Vehicle> ParkingLot::fillVectorFromArray(vector<Vehicle> &vehicleVector,
     }
     // Shouldn't get here.
     return vehicleVector;
-}
-
-ostream &ParkingLot::printVehiclesOfType(ostream &os, VehicleType type) const {
-    return os;
-}
-
-ostream &ParkingLot::genericPrintVehicles(ostream &os, Vehicle vehicle,
-                                          VehicleType type) {
-    ParkingLotPrinter::printVehicle(os, vehicle.getVehicleType(),
-                                    vehicle.getLicensePlate(),
-                                    vehicle.getEntranceTime());
-    ParkingLotPrinter::printParkingSpot(os, vehicle.getParkingSpot());
-    return os;
 }
 
 ParkingResult ParkingLot::insertNonHandicap(VehicleType vehicleType,

@@ -28,22 +28,10 @@ namespace MtmParkingLot {
                                                  LicensePlate licensePlate,
                                                  Time entranceTime);
 
-        static ParkingResult insertNewVehicle(UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> array, VehicleType vehicleType,
-                                              LicensePlate licensePlate,
-                                              Time entranceTime,
-                                              const UniqueArray<Vehicle,
-                                                      std::equal_to<Vehicle>> &carArray);
-
         static ParkingResult genericGetSpot(const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &array, VehicleType vehicleType,
                                             const LicensePlate &licensePlate,
                                             ParkingSpot &parkingSpot);
-
-        static ParkingResult genericExitParking(UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> array, VehicleType vehicleType,
-                                                const LicensePlate &licensePlate,
-                                                Time exitTime);
 
         static int
         genericInspectParkingLot(Time currentTime, const UniqueArray<Vehicle,
@@ -122,24 +110,6 @@ namespace MtmParkingLot {
          * @return An ostream to continue printing
          */
         friend ostream &operator<<(ostream &os, const ParkingLot &parkingLot);
-
-        /**
-         * Receives a vehicle types and calls the correct printing function for
-         * the input type
-         * @param os An ostream reference to write to stdout
-         * @param type
-         * @return
-         */
-        ostream &printVehiclesOfType(ostream &os, VehicleType type) const;
-
-        /**
-         * Prints all Motorbikes in the parking lot
-         * @param os An ostream reference to write to stdout
-         * @return An ostream to continue printing
-         */
-        static ostream &
-        genericPrintVehicles(ostream &os, Vehicle vehicle,
-                             VehicleType type);
 
         ParkingResult
         removeNonHandicap(VehicleType type, const LicensePlate &licensePlate,

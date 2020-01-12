@@ -38,17 +38,6 @@ public:
      */
     unsigned int insert(const Element &element);
 
-    void insertAtIndex(unsigned int index, const Element &element);
-
-    /**
-     * Checks if an element exists in the UniqueArray and returns it's index
-     * @param element The element to get it's stored index
-     * @param index An index reference to store the index the Object is stored
-     * in, inside the UniqueArray
-     * @return true if the object exists in the UniqueArray, false otherwise
-     */
-    bool getIndex(const Element &element, unsigned int &index) const;
-
     /**
      * Returns a pointer to an object from the UniqueArray
      * @param element The object to return from the UniqueArray
@@ -83,8 +72,6 @@ public:
      */
     const int contains(const Element &element) const;
 
-    int getHistogramValueAtIndex(int index);
-
     /**
      * Returns a pointer of an object in the UniqueArray by it's index
      * @param index The index of the object in the UniqueArray
@@ -92,6 +79,10 @@ public:
      */
     Element *getElementByIndex(unsigned int index) const;
 
+    /**
+     * Filter class to generate new Unique Array instances based on a provided
+     * filter rule
+     */
     class Filter {
     public:
         virtual bool operator()(const Element &) const = 0;
@@ -105,6 +96,10 @@ public:
      */
     UniqueArray filter(const Filter &f) const;
 
+    /**
+     * Exception class to throw when attempting to add a new item to a full
+     * Unique Array
+     */
     class UniqueArrayIsFullException {
     };
 

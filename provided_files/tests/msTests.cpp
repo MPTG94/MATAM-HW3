@@ -56,6 +56,7 @@ void testFilter() {
     pUA.insert(point1);
     pUA.insert(point100);
 
+    cout << pUA.getCount() << endl;
     PointUA filtered = pUA.filter(LessThan5());
     const Point *p100 = filtered[point100];
 
@@ -69,7 +70,7 @@ void testSimpleMember() {
 }
 
 int main() {
-    //testFilter();
-    testSimpleMember();
+    testFilter();
+    //testSimpleMember();
     return 0;
 }
