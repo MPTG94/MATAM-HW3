@@ -22,7 +22,7 @@ private:
     static int calculatingCarParkingPrice(unsigned int
                                                    totalTimeInHours,
                                                    unsigned int oneHour,
-                                                   int price);
+                                                   unsigned  int price);
 
     static unsigned int calculateMotorbikeParkingPrice(unsigned int
                                                        totalTimeInHours,
