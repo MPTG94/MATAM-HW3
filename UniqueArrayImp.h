@@ -116,7 +116,7 @@ template<class Element, class Compare>
 unsigned int UniqueArray<Element, Compare>::getCount() const {
     unsigned int count = 0;
     for (int i = 0; i < this->size; i++) {
-        count += this->histogram[i];
+        count = count + this->histogram[i];
     }
 
     return count;

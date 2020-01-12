@@ -21,6 +21,13 @@ namespace MtmParkingLot {
         UniqueArray<Vehicle, std::equal_to<Vehicle>> handicapArray;
         UniqueArray<Vehicle, std::equal_to<Vehicle>> carArray;
 
+        ParkingResult insertNonHandicap(VehicleType vehicleType, LicensePlate
+        licensePlate, Time entranceTime);
+
+        ParkingResult insertHandicap(VehicleType vehicleType,
+                                                 LicensePlate licensePlate,
+                                                 Time entranceTime);
+
         static ParkingResult insertNewVehicle(UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> array, VehicleType vehicleType,
                                               LicensePlate licensePlate,
@@ -133,6 +140,14 @@ namespace MtmParkingLot {
         static ostream &
         genericPrintVehicles(ostream &os, Vehicle vehicle,
                              VehicleType type);
+
+        ParkingResult
+        removeNonHandicap(VehicleType type, const LicensePlate &licensePlate,
+                          Time exitTime);
+
+        ParkingResult
+        removeHandicap(const LicensePlate &licensePlate,
+                          Time exitTime);
     };
 
 }
