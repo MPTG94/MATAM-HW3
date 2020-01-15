@@ -21,7 +21,7 @@ namespace MtmParkingLot {
 
     std::ostream
     &operator<<(std::ostream &os,
-                const MtmParkingLot::ParkingLot &parkingLot) {
+                const ParkingLot &parkingLot) {
         vector<Vehicle> vehicleVector = vector<Vehicle>();
         vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
                                                        MOTORBIKE);
@@ -44,15 +44,15 @@ namespace MtmParkingLot {
     }
 
 
-    MtmParkingLot::ParkingLot::ParkingLot(unsigned int *parkingBlockSizes)
+    ParkingLot::ParkingLot(unsigned int *parkingBlockSizes)
             : motorbikeArray(parkingBlockSizes[0]),
               handicapArray(parkingBlockSizes[1]),
               carArray(parkingBlockSizes[2]) {
     }
 
-    MtmParkingLot::ParkingLot::~ParkingLot() = default;
+    ParkingLot::~ParkingLot() = default;
 
-    ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::enterParking(
+    ParkingLotUtils::ParkingResult ParkingLot::enterParking(
             ParkingLotUtils::VehicleType vehicleType,
             ParkingLotUtils::LicensePlate &licensePlate,
             ParkingLotUtils::Time entranceTime) {
@@ -68,7 +68,7 @@ namespace MtmParkingLot {
         }
     }
 
-    ParkingLotUtils::ParkingResult MtmParkingLot::ParkingLot::getParkingSpot(
+    ParkingLotUtils::ParkingResult ParkingLot::getParkingSpot(
             ParkingLotUtils::LicensePlate licensePlate,
             ParkingLotUtils::ParkingSpot &parkingSpot) const {
         if (genericGetSpot(carArray, CAR, licensePlate,
@@ -84,7 +84,7 @@ namespace MtmParkingLot {
     }
 
     ParkingLotUtils::ParkingResult
-    MtmParkingLot::ParkingLot::exitParking(
+    ParkingLot::exitParking(
             ParkingLotUtils::LicensePlate licensePlate,
             ParkingLotUtils::Time exitTime) {
         ParkingSpot spot;
@@ -103,7 +103,7 @@ namespace MtmParkingLot {
         return VEHICLE_NOT_FOUND;
     }
 
-    void MtmParkingLot::ParkingLot::inspectParkingLot(
+    void ParkingLot::inspectParkingLot(
             ParkingLotUtils::Time inspectionTime) {
         int fineCounter = 0;
         fineCounter += genericInspectParkingLot(inspectionTime,
