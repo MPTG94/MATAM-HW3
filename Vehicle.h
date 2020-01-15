@@ -12,45 +12,47 @@
 
 using namespace ParkingLotUtils;
 
-class Vehicle {
-private:
-    string plate;
-    Time entranceTime;
-    VehicleType type;
-    ParkingSpot spot;
-    bool fined = false;
+namespace MtmParkingLot {
 
-    static int calculatingCarParkingPrice(unsigned int
-                                                   totalTimeInHours,
-                                                   unsigned int oneHour,
-                                                   unsigned  int price);
+    class Vehicle {
+    private:
+        string plate;
+        Time entranceTime;
+        VehicleType type;
+        ParkingSpot spot;
+        bool fined = false;
 
-    static unsigned int calculateMotorbikeParkingPrice(unsigned int
-                                                       totalTimeInHours,
-                                                       unsigned int oneHour,
-                                                       unsigned int price);
+        static int calculatingCarParkingPrice(unsigned int
+                                              totalTimeInHours,
+                                              unsigned int oneHour,
+                                              unsigned int price);
 
-public:
-    Vehicle(string plate, Time entranceTime, VehicleType type);
+        static unsigned int calculateMotorbikeParkingPrice(unsigned int
+                                                           totalTimeInHours,
+                                                           unsigned int oneHour,
+                                                           unsigned int price);
 
-    string getLicensePlate();
+    public:
+        Vehicle(string plate, Time entranceTime, VehicleType type);
 
-    VehicleType getVehicleType();
+        string getLicensePlate();
 
-    Time getEntranceTime();
+        VehicleType getVehicleType();
 
-    ParkingSpot getParkingSpot();
+        Time getEntranceTime();
 
-    bool setParkingSpot(ParkingSpot parkingSpot);
+        ParkingSpot getParkingSpot();
 
-    bool isFined();
+        bool setParkingSpot(ParkingSpot parkingSpot);
 
-    void markAsFined();
+        bool isFined();
 
-    int calculateParkingPrice(Time exitTime);
+        void markAsFined();
 
-    bool operator==(const Vehicle &vehicle) const;
+        int calculateParkingPrice(Time exitTime);
 
-};
+        bool operator==(const Vehicle &vehicle) const;
 
+    };
+}
 #endif //HW3_VEHICLE_H
