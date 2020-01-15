@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cassert>
-#include "../../UniqueArray.h"
+#include "../UniqueArray.h"
 
 
 class TestElement{

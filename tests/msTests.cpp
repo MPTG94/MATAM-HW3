@@ -4,7 +4,7 @@
 
 #include <functional>
 
-#include "../../UniqueArray.h"
+#include "../UniqueArray.h"
 
 using namespace std;
 

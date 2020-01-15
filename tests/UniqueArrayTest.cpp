@@ -2,7 +2,7 @@
 #include <functional>
 #include <iostream>
 #include <cmath>
-#include "../../UniqueArray.h"
+#include "../UniqueArray.h"
 
 class Point {
 private:

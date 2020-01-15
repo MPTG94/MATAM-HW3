@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "../../UniqueArray.h"
+#include "../UniqueArray.h"
 
 class TestClass{
 private:
