@@ -13,6 +13,7 @@ private:
 public:
     explicit Test(int size) : testUA(size) {
     }
+
     bool addNewNumber(int number) {
         testUA.insert(1);
         return true;
@@ -27,7 +28,9 @@ public:
     Point() : x(0), y(0) {
     }
 
+
     Point(int x, int y) : x(x), y(y) {}
+//    Point(const Point & a) = delete;
 
     bool operator==(const Point &point) const {
         return (point.x == this->x) && (point.y == this->y);
@@ -54,11 +57,11 @@ void testFilter() {
     PointUA pUA(size);
     pUA.insert(point);
     pUA.insert(point1);
-    pUA.insert(point100);
+//    pUA.insert(point100);
 
     cout << pUA.getCount() << endl;
-    PointUA filtered = pUA.filter(LessThan5());
-    const Point *p100 = filtered[point100];
+//    PointUA filtered = pUA.filter(LessThan5());
+//    const Point *p100 = filtered[point100];
 
 }
 
@@ -70,6 +73,21 @@ void testSimpleMember() {
 }
 
 int main() {
+    typedef UniqueArray<unsigned int, std::equal_to<unsigned int>> uintUA;
+    uintUA myUa = uintUA(5);
+    int a = 1;
+    int b = 2;
+    myUa.insert(a);
+    myUa.insert(b);
+    const unsigned int *test = myUa[a];
+
+
+
+
+
+
+
+    cout << *test;
     testFilter();
     //testSimpleMember();
     return 0;
