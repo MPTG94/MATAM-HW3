@@ -247,6 +247,7 @@ ParkingResult ParkingLot::insertHandicapToHandicapBlock(const Vehicle& vehicle) 
     printVehicleEntryByVehicle(vehicle, spot);
     handicapArray.getElementByIndex(newIndex)->setParkingSpot(
             spot);
+    return SUCCESS;
 }
 
 ParkingResult ParkingLot::insertHandicapToCarBlock(const Vehicle& vehicle) {
@@ -367,6 +368,7 @@ ParkingResult ParkingLot::removeHandicap(const LicensePlate &licensePlate,
             }
         }
     }
+    return SUCCESS;
 }
 
 int ParkingLot::genericInspectParkingLot(Time currentTime,
