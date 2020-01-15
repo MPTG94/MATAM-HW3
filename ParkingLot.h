@@ -1,7 +1,6 @@
 #ifndef MTMPARKINGLOT_PARKINGLOT_H
 #define MTMPARKINGLOT_PARKINGLOT_H
 
-#include <functional>
 #include <vector>
 #include "ParkingLotTypes.h"
 #include "Time.h"
@@ -144,7 +143,6 @@ namespace MtmParkingLot {
         ParkingResult
         insertHandicapToCarBlock(const Vehicle &vehicle);
     };
-
 }
 
 #endif //MTMPARKINGLOT_PARKINGLOT_H

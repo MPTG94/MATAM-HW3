@@ -11,6 +11,39 @@
 using namespace MtmParkingLot;
 using namespace std;
 
+namespace MtmParkingLot {
+
+    struct CompareVehicles {
+        bool operator()(Vehicle vehicle1, Vehicle vehicle2) {
+            return (vehicle1.getParkingSpot() < vehicle2.getParkingSpot());
+        }
+    };
+
+    std::ostream
+    &operator<<(std::ostream &os,
+                const MtmParkingLot::ParkingLot &parkingLot) {
+        vector<Vehicle> vehicleVector = vector<Vehicle>();
+        vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
+                                                       MOTORBIKE);
+        vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
+                                                       HANDICAPPED);
+        vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
+                                                       CAR);
+        ParkingLotPrinter::printParkingLotTitle(os);
+        sort(vehicleVector.begin(), vehicleVector.end(),
+             CompareVehicles());
+        for (unsigned int i = 0; i < vehicleVector.size(); i++) {
+            Vehicle vehicle = vehicleVector[i];
+            ParkingLotPrinter::printVehicle(os, vehicle.getVehicleType(),
+                                            vehicle.getLicensePlate(),
+                                            vehicle.getEntranceTime());
+            ParkingLotPrinter::printParkingSpot(os,
+                                                vehicle.getParkingSpot());
+        }
+        return os;
+    }
+}
+
 
 MtmParkingLot::ParkingLot::ParkingLot(unsigned int *parkingBlockSizes)
         : motorbikeArray(parkingBlockSizes[0]),
@@ -84,39 +117,11 @@ void MtmParkingLot::ParkingLot::inspectParkingLot(
                                              fineCounter);
 }
 
-struct CompareVehicles {
-    bool operator()(Vehicle vehicle1, Vehicle vehicle2) {
-        return (vehicle1.getParkingSpot() < vehicle2.getParkingSpot());
-    }
-};
-
-std::ostream
-&MtmParkingLot::operator<<(std::ostream &os,
-                           const MtmParkingLot::ParkingLot &parkingLot) {
-    vector<Vehicle> vehicleVector = vector<Vehicle>();
-    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
-                                                   MOTORBIKE);
-    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
-                                                   HANDICAPPED);
-    vehicleVector = parkingLot.fillVectorFromArray(vehicleVector,
-                                                   CAR);
-    ParkingLotPrinter::printParkingLotTitle(os);
-    sort(vehicleVector.begin(), vehicleVector.end(), CompareVehicles());
-    for (int i = 0; i < vehicleVector.size(); i++) {
-        Vehicle vehicle = vehicleVector[i];
-        ParkingLotPrinter::printVehicle(os, vehicle.getVehicleType(),
-                                        vehicle.getLicensePlate(),
-                                        vehicle.getEntranceTime());
-        ParkingLotPrinter::printParkingSpot(os, vehicle.getParkingSpot());
-    }
-    return os;
-}
-
 vector<Vehicle> ParkingLot::fillVectorFromArray(vector<Vehicle> &vehicleVector,
                                                 VehicleType type) const {
     switch (type) {
         case ParkingLotUtils::MOTORBIKE:
-            for (int i = 0; i < this->motorbikeArray.getSize(); i++) {
+            for (unsigned int i = 0; i < this->motorbikeArray.getSize(); i++) {
                 Vehicle *vehicle = this->motorbikeArray.getElementByIndex(i);
                 if (vehicle != nullptr) {
                     vehicleVector.push_back(*vehicle);
@@ -124,7 +129,7 @@ vector<Vehicle> ParkingLot::fillVectorFromArray(vector<Vehicle> &vehicleVector,
             }
             return vehicleVector;
         case ParkingLotUtils::HANDICAPPED:
-            for (int i = 0; i < this->handicapArray.getSize(); i++) {
+            for (unsigned int i = 0; i < this->handicapArray.getSize(); i++) {
                 Vehicle *vehicle = this->handicapArray.getElementByIndex(i);
                 if (vehicle != nullptr) {
                     vehicleVector.push_back(*vehicle);
@@ -132,7 +137,7 @@ vector<Vehicle> ParkingLot::fillVectorFromArray(vector<Vehicle> &vehicleVector,
             }
             return vehicleVector;
         case CAR:
-            for (int i = 0; i < this->carArray.getSize(); i++) {
+            for (unsigned int i = 0; i < this->carArray.getSize(); i++) {
                 Vehicle *vehicle = this->carArray.getElementByIndex(i);
                 if (vehicle != nullptr) {
                     vehicleVector.push_back(*vehicle);
@@ -264,7 +269,7 @@ ParkingResult ParkingLot::genericGetSpot(const UniqueArray<Vehicle,
         std::equal_to<Vehicle>> &array, VehicleType vehicleType,
                                          const LicensePlate &licensePlate,
                                          ParkingSpot &parkingSpot) {
-    for (int i = 0; i < array.getSize(); i++) {
+    for (unsigned int i = 0; i < array.getSize(); i++) {
         Vehicle *currentVehicle = array.getElementByIndex(i);
         if (currentVehicle != nullptr) {
             if (currentVehicle->getLicensePlate() == licensePlate) {
@@ -280,7 +285,7 @@ ParkingResult ParkingLot::removeNonHandicap(VehicleType type,
                                             const LicensePlate &licensePlate,
                                             Time exitTime) {
     if (type == MOTORBIKE) {
-        for (int i = 0; i < motorbikeArray.getSize(); i++) {
+        for (unsigned int i = 0; i < motorbikeArray.getSize(); i++) {
             Vehicle *currentVehicle = motorbikeArray.getElementByIndex(i);
             if (currentVehicle != nullptr) {
                 if (currentVehicle->getLicensePlate() == licensePlate) {
@@ -293,7 +298,7 @@ ParkingResult ParkingLot::removeNonHandicap(VehicleType type,
             }
         }
     } else {
-        for (int i = 0; i < carArray.getSize(); i++) {
+        for (unsigned int i = 0; i < carArray.getSize(); i++) {
             Vehicle *currentVehicle = carArray.getElementByIndex(i);
             if (currentVehicle != nullptr) {
                 if (currentVehicle->getLicensePlate() == licensePlate) {
@@ -345,7 +350,7 @@ void ParkingLot::printVehicleExitByVehicle(Vehicle *vehicle, Time exitTime,
 
 ParkingResult ParkingLot::removeHandicap(const LicensePlate &licensePlate,
                                          Time exitTime) {
-    for (int i = 0; i < handicapArray.getSize(); i++) {
+    for (unsigned int i = 0; i < handicapArray.getSize(); i++) {
         Vehicle *currentVehicle = handicapArray.getElementByIndex(i);
         if (currentVehicle != nullptr) {
             if (currentVehicle->getLicensePlate() == licensePlate) {
@@ -357,7 +362,7 @@ ParkingResult ParkingLot::removeHandicap(const LicensePlate &licensePlate,
             }
         }
     }
-    for (int i = 0; i < carArray.getSize(); i++) {
+    for (unsigned int i = 0; i < carArray.getSize(); i++) {
         Vehicle *currentVehicle = carArray.getElementByIndex(i);
         if (currentVehicle != nullptr) {
             if (currentVehicle->getLicensePlate() == licensePlate) {
@@ -377,7 +382,7 @@ int ParkingLot::genericInspectParkingLot(Time currentTime,
                                                  std::equal_to<Vehicle>> &array) {
     int count = 0;
     unsigned int oneHour = 1;
-    for (int i = 0; i < array.getSize(); i++) {
+    for (unsigned int i = 0; i < array.getSize(); i++) {
         Vehicle *currentVehicle = array.getElementByIndex(i);
         if (currentVehicle != nullptr) {
             if (!currentVehicle->isFined()) {

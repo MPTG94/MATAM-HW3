@@ -48,7 +48,7 @@ void testFilter() {
     int size = 3;
     Point point = Point();
     Point point1 = Point(1, 1);
-    Point point100 = Point(100, 100);
+    //Point point100 = Point(100, 100);
     class LessThan5 : public PointUA::Filter {
     public:
         virtual bool operator()(Point const &element) const override {
