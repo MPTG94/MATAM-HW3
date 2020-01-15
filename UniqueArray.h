@@ -79,7 +79,7 @@ public:
      * @param element The object to check if it is in the UniqueArray
      * @return true if the object is in the UniqueArray, false otherwise
      */
-    const int contains(const Element &element) const;
+    int contains(const Element &element) const;
 
     /**
      * Returns a pointer of an object in the UniqueArray by it's index

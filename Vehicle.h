@@ -6,9 +6,9 @@
 #define HW3_VEHICLE_H
 
 #include <string>
-#include "provided_files/ParkingLotTypes.h"
-#include "provided_files/ParkingSpot.h"
-#include "provided_files/Time.h"
+#include "ParkingLotTypes.h"
+#include "ParkingSpot.h"
+#include "Time.h"
 
 using namespace ParkingLotUtils;
 

@@ -6,6 +6,8 @@
 
 #include "../../UniqueArray.h"
 
+using namespace std;
+
 class Test {
 private:
     UniqueArray<int, std::equal_to<int>> testUA;

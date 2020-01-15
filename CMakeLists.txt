@@ -9,7 +9,7 @@ add_executable(uniqueArr-Yonatan ./provided_files/tests/YonatanTests.cpp UniqueA
 add_executable(uniqueArr-ms ./provided_files/tests/msTests.cpp UniqueArray.h UniqueArrayImp.h)
 
 
-add_executable(parkingLot-local ./provided_files/ParkingLot.h ./provided_files/MtmParkingLot.cpp
-        ./provided_files/ParkingLotTypes.h ./provided_files/ParkingSpot.h ./provided_files/ParkingSpot.cpp
-        ./provided_files/Time.h ./provided_files/Time.cpp ./provided_files/ParkingLotPrinter.h
-        ./provided_files/ParkingLotPrinter.cpp UniqueArray.h UniqueArrayImp.h ParkingLot.cpp Vehicle.h Vehicle.cpp)
+add_executable(parkingLot-local ParkingLot.h MtmParkingLot.cpp
+        ParkingLotTypes.h ParkingSpot.h ParkingSpot.cpp
+        Time.h Time.cpp ParkingLotPrinter.h
+        ParkingLotPrinter.cpp UniqueArray.h UniqueArrayImp.h ParkingLot.cpp Vehicle.h Vehicle.cpp)

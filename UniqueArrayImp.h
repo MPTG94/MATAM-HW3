@@ -7,10 +7,6 @@
 
 #include <iostream>
 
-using namespace std;
-
-#include "UniqueArray.h"
-
 template<class Element, class Compare>
 UniqueArray<Element, Compare>::UniqueArray(unsigned int size) :
         size(size),
@@ -140,7 +136,7 @@ UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
 }
 
 template<class Element, class Compare>
-const int
+int
 UniqueArray<Element, Compare>::contains(const Element &element) const {
     Compare compare;
     for (int i = 0; i < this->size; i++) {

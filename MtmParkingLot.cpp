@@ -50,7 +50,7 @@ static void handleInputError(istream& inputStream, string errorMsg) {
 
 static VehicleType vehicleStrToVehicleType(string vehicleTypeStr) {
     static map<string, VehicleType> vehicleTypes = { {"Motorbike", VehicleType::MOTORBIKE},
-                                                     {"Handicapped", VehicleType::HANDICAPPED}, 
+                                                     {"Handicapped", VehicleType::HANDICAPPED},
                                                      {"Car", VehicleType::CAR} };
     return vehicleTypes.at(vehicleTypeStr);
 }
@@ -101,7 +101,7 @@ static void processInput(istream& inputStream, ParkingLot& parkingLot, Time& cur
                                               {"EXIT", processExitCmd},
                                               {"PRINT", processPrintCmd},
                                               {"PASS_TIME", processPassCmd},
-                                              {"INSPECT", processInspectCmd}}; 
+                                              {"INSPECT", processInspectCmd}};
     cout << "Enter commands:" << endl;
     string cmd;
     while (inputStream >> cmd) {

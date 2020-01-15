@@ -6,14 +6,15 @@
 #include "ParkingLotTypes.h"
 #include "Time.h"
 #include "ParkingSpot.h"
-#include "../UniqueArray.h"
-#include "../Vehicle.h"
+#include "UniqueArray.h"
+#include "Vehicle.h"
 
 
 namespace MtmParkingLot {
 
     using namespace ParkingLotUtils;
-    using std::ostream;
+    using std::ostream ;
+    using std::vector;
 
     class ParkingLot {
     private:
@@ -122,7 +123,8 @@ namespace MtmParkingLot {
         static void
         printVehicleExitByVehicle(Vehicle *vehicle, Time exitTime, int bill);
 
-        static void printVehicleEntryByVehicle(Vehicle vehicle, ParkingSpot spot);
+        static void
+        printVehicleEntryByVehicle(Vehicle vehicle, ParkingSpot spot);
 
         static void printVehicleParkedByVehicle(Vehicle *vehicle);
 
@@ -137,10 +139,10 @@ namespace MtmParkingLot {
                   Time entranceTime);
 
         ParkingResult
-        insertHandicapToHandicapBlock(const Vehicle& vehicle);
+        insertHandicapToHandicapBlock(const Vehicle &vehicle);
 
         ParkingResult
-        insertHandicapToCarBlock(const Vehicle& vehicle);
+        insertHandicapToCarBlock(const Vehicle &vehicle);
     };
 
 }

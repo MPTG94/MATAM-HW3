@@ -4,9 +4,8 @@
 #include <algorithm>
 #include <utility>
 #include <vector>
-#include <utility>
-#include "provided_files/ParkingLot.h"
-#include "./provided_files/ParkingLotPrinter.h"
+#include "ParkingLot.h"
+#include "ParkingLotPrinter.h"
 
 
 using namespace MtmParkingLot;
@@ -149,7 +148,8 @@ ParkingResult ParkingLot::insertNonHandicap(VehicleType vehicleType,
                                             LicensePlate licensePlate,
                                             Time entranceTime) {
     if (vehicleType == MOTORBIKE) {
-        return insertMotorbike(vehicleType, std::move(licensePlate), entranceTime);
+        return insertMotorbike(vehicleType, std::move(licensePlate),
+                               entranceTime);
     } else {
         return insertCar(vehicleType, std::move(licensePlate), entranceTime);
     }
@@ -241,7 +241,8 @@ ParkingResult ParkingLot::insertHandicap(VehicleType vehicleType,
     }
 }
 
-ParkingResult ParkingLot::insertHandicapToHandicapBlock(const Vehicle& vehicle) {
+ParkingResult
+ParkingLot::insertHandicapToHandicapBlock(const Vehicle &vehicle) {
     unsigned int newIndex = handicapArray.insert(vehicle);
     ParkingSpot spot = ParkingSpot(HANDICAPPED, newIndex);
     printVehicleEntryByVehicle(vehicle, spot);
@@ -250,7 +251,7 @@ ParkingResult ParkingLot::insertHandicapToHandicapBlock(const Vehicle& vehicle) 
     return SUCCESS;
 }
 
-ParkingResult ParkingLot::insertHandicapToCarBlock(const Vehicle& vehicle) {
+ParkingResult ParkingLot::insertHandicapToCarBlock(const Vehicle &vehicle) {
     unsigned int newIndex = carArray.insert(vehicle);
     ParkingSpot spot = ParkingSpot(CAR, newIndex);
     printVehicleEntryByVehicle(vehicle, spot);
