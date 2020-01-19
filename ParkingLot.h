@@ -80,7 +80,7 @@ namespace MtmParkingLot {
         /**
          * Deletes an instance of ParkingLot
          */
-        ~ParkingLot() = delete;
+        ~ParkingLot() = default;
 
         /**
          * Registers a new vehicle to the parking lot
