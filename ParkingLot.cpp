@@ -231,7 +231,7 @@ namespace MtmParkingLot {
             return VEHICLE_ALREADY_PARKED;
         } else if (isInCarArray != -1) {
             Vehicle *oldVehicle = this->carArray.getElementByIndex(
-                    isInHandicapArray);
+                    isInCarArray);
             printVehicleParkedByVehicle(oldVehicle);
             return VEHICLE_ALREADY_PARKED;
         } else {
@@ -399,7 +399,7 @@ namespace MtmParkingLot {
                     unsigned int totalTime =
                             (currentTime -
                              currentVehicle->getEntranceTime()).toHours();
-                    if (totalTime >= 24 * oneHour) {
+                    if (totalTime > 24 * oneHour) {
                         count++;
                         currentVehicle->markAsFined();
                     }
