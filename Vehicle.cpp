@@ -16,6 +16,8 @@ namespace MtmParkingLot {
     static const int PRICE_FOR_EXTRA_HOURS_CAR = 10;
     static const int MAX_PRICE_FOR_CAR = 70;
     static const int FINE = 250;
+    const unsigned int MAX_TIME_FOR_VEHICLE = 6;
+
 
     Vehicle::Vehicle(string plate, Time entranceTime, VehicleType type) :
             plate(move(plate)), entranceTime(entranceTime), type(type),
@@ -82,7 +84,7 @@ namespace MtmParkingLot {
         if (totalTimeInHours <= oneHour) {
             price = PRICE_FOR_FIRST_HOUR_CAR;
         } else if (totalTimeInHours > oneHour &&
-                   totalTimeInHours <= 6 * oneHour) {
+                   totalTimeInHours <= MAX_TIME_FOR_VEHICLE * oneHour) {
             price = PRICE_FOR_FIRST_HOUR_CAR +
                     PRICE_FOR_EXTRA_HOURS_CAR * (totalTimeInHours - 1);
         } else {
@@ -98,7 +100,7 @@ namespace MtmParkingLot {
         if (totalTimeInHours <= oneHour) {
             price = PRICE_FOR_FIRST_HOUR_MOTORBIKE;
         } else if ((totalTimeInHours > oneHour) &&
-                   (totalTimeInHours <= 6 * oneHour)) {
+                   (totalTimeInHours <= MAX_TIME_FOR_VEHICLE * oneHour)) {
             price = PRICE_FOR_FIRST_HOUR_MOTORBIKE +
                     PRICE_FOR_EXTRA_HOURS_MOTORBIKE * (totalTimeInHours - 1);
         } else {
