@@ -346,8 +346,8 @@ namespace MtmParkingLot {
                 Vehicle *currentVehicle = motorbikeArray.getElementByIndex(i);
                 if (currentVehicle != nullptr) {
                     if (currentVehicle->getLicensePlate() == licensePlate) {
-                        unsigned int bill = currentVehicle->calculateParkingPrice(
-                                exitTime);
+                        unsigned int bill =
+                                currentVehicle->calculateParkingPrice(exitTime);
                         printVehicleExitByVehicle(currentVehicle, exitTime,
                                                   bill);
                         motorbikeArray.remove(*currentVehicle);
@@ -360,8 +360,8 @@ namespace MtmParkingLot {
                 Vehicle *currentVehicle = carArray.getElementByIndex(i);
                 if (currentVehicle != nullptr) {
                     if (currentVehicle->getLicensePlate() == licensePlate) {
-                        unsigned int bill = currentVehicle->calculateParkingPrice(
-                                exitTime);
+                        unsigned int bill =
+                                currentVehicle->calculateParkingPrice(exitTime);
                         printVehicleExitByVehicle(currentVehicle, exitTime,
                                                   bill);
                         carArray.remove(*currentVehicle);

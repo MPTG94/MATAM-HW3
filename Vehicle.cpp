@@ -21,7 +21,6 @@ namespace MtmParkingLot {
 
     Vehicle::Vehicle(string plate, Time entranceTime, VehicleType type) :
             plate(move(plate)), entranceTime(entranceTime), type(type),
-            // FIXME: might cause issues
             spot() {}
 
     string Vehicle::getLicensePlate() {
