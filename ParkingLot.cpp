@@ -9,9 +9,12 @@
 
 
 using namespace MtmParkingLot;
-using namespace std;
+using std::ostream;
+using std::cout;
 
 namespace MtmParkingLot {
+
+    static const int HOURS_IN_A_DAY = 24;
 
     struct CompareVehicles {
         bool operator()(Vehicle vehicle1, Vehicle vehicle2) {
@@ -71,11 +74,11 @@ namespace MtmParkingLot {
     ParkingLotUtils::ParkingResult ParkingLot::getParkingSpot(
             ParkingLotUtils::LicensePlate licensePlate,
             ParkingLotUtils::ParkingSpot &parkingSpot) const {
-        if (genericGetSpot(carArray, CAR, licensePlate,
+        if (genericGetSpot(carArray, licensePlate,
                            parkingSpot) == SUCCESS ||
-            genericGetSpot(motorbikeArray, MOTORBIKE,
+            genericGetSpot(motorbikeArray,
                            licensePlate, parkingSpot) == SUCCESS ||
-            genericGetSpot(handicapArray, HANDICAPPED,
+            genericGetSpot(handicapArray,
                            licensePlate, parkingSpot) == SUCCESS) {
             return SUCCESS;
         } else {
@@ -170,8 +173,7 @@ namespace MtmParkingLot {
         Vehicle newVehicle = Vehicle(std::move(licensePlate), entranceTime,
                                      vehicleType);
         int isVehicleInArray = this->carArray.contains(newVehicle);
-        if (isVehicleInArray != -1) {
-            // Car is already in lot
+        if (isVehicleInArray != NOT_FOUND) {
             Vehicle *oldVehicle = this->carArray.getElementByIndex(
                     isVehicleInArray);
             printVehicleParkedByVehicle(oldVehicle);
@@ -196,8 +198,7 @@ namespace MtmParkingLot {
         Vehicle newVehicle = Vehicle(std::move(licensePlate), entranceTime,
                                      vehicleType);
         int isVehicleInArray = this->motorbikeArray.contains(newVehicle);
-        if (isVehicleInArray != -1) {
-            // Bike is already in lot
+        if (isVehicleInArray != NOT_FOUND) {
             Vehicle *oldVehicle = this->motorbikeArray.getElementByIndex(
                     isVehicleInArray);
             printVehicleParkedByVehicle(oldVehicle);
@@ -224,25 +225,22 @@ namespace MtmParkingLot {
                                      vehicleType);
         int isInHandicapArray = this->handicapArray.contains(newVehicle);
         int isInCarArray = this->carArray.contains(newVehicle);
-        if (isInHandicapArray != -1) {
+        if (isInHandicapArray != NOT_FOUND) {
             Vehicle *oldVehicle = this->handicapArray.getElementByIndex(
                     isInHandicapArray);
             printVehicleParkedByVehicle(oldVehicle);
             return VEHICLE_ALREADY_PARKED;
-        } else if (isInCarArray != -1) {
+        } else if (isInCarArray != NOT_FOUND) {
             Vehicle *oldVehicle = this->carArray.getElementByIndex(
                     isInCarArray);
             printVehicleParkedByVehicle(oldVehicle);
             return VEHICLE_ALREADY_PARKED;
         } else {
-            // Car is not in any lot
             if (this->handicapArray.getSize() - this->handicapArray.getCount() >
                 0) {
-                // Car can be placed in this lot.
                 return insertHandicapToHandicapBlock(newVehicle);
             } else if (this->carArray.getSize() - this->carArray.getCount() >
                        0) {
-                // Car can be placed in this lot.
                 return insertHandicapToCarBlock(newVehicle);
             } else {
                 printNoRoomForVehicleByVehicle(newVehicle);
@@ -271,8 +269,7 @@ namespace MtmParkingLot {
     }
 
     ParkingResult ParkingLot::genericGetSpot(const UniqueArray<Vehicle,
-            std::equal_to<Vehicle>> &array, VehicleType vehicleType,
-                                             const LicensePlate &licensePlate,
+            std::equal_to<Vehicle>> &array, const LicensePlate &licensePlate,
                                              ParkingSpot &parkingSpot) {
         for (unsigned int i = 0; i < array.getSize(); i++) {
             Vehicle *currentVehicle = array.getElementByIndex(i);
@@ -399,7 +396,7 @@ namespace MtmParkingLot {
                     unsigned int totalTime =
                             (currentTime -
                              currentVehicle->getEntranceTime()).toHours();
-                    if (totalTime > 24 * oneHour) {
+                    if (totalTime > HOURS_IN_A_DAY * oneHour) {
                         count++;
                         currentVehicle->markAsFined();
                     }

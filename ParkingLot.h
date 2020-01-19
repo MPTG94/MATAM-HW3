@@ -12,7 +12,7 @@
 namespace MtmParkingLot {
 
     using namespace ParkingLotUtils;
-    using std::ostream ;
+    using std::ostream;
     using std::vector;
 
     class ParkingLot {
@@ -29,7 +29,7 @@ namespace MtmParkingLot {
                                      Time entranceTime);
 
         static ParkingResult genericGetSpot(const UniqueArray<Vehicle,
-                std::equal_to<Vehicle>> &array, VehicleType vehicleType,
+                std::equal_to<Vehicle>> &array,
                                             const LicensePlate &licensePlate,
                                             ParkingSpot &parkingSpot);
 

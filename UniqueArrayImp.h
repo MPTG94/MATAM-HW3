@@ -147,7 +147,7 @@ UniqueArray<Element, Compare>::contains(const Element &element) const {
         }
     }
 
-    return -1;
+    return NOT_FOUND;
 }
 
 template<class Element, class Compare>

@@ -3,6 +3,8 @@
 
 #include <functional>
 
+const int NOT_FOUND = -1;
+
 template<class Element, class Compare = std::equal_to<Element>>
 class UniqueArray {
 

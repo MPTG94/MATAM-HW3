@@ -6,19 +6,21 @@
 #include <utility>
 
 using std::move;
-const int PRICE_FOR_HANDICAPPED = 15;
-const int PRICE_FOR_FIRST_HOUR_MOTORBIKE = 10;
-const int PRICE_FOR_EXTRA_HOURS_MOTORBIKE = 5;
-const int MAX_PRICE_FOR_MOTORBIKE = 35;
-const int PRICE_FOR_FIRST_HOUR_CAR = 20;
-const int PRICE_FOR_EXTRA_HOURS_CAR = 10;
-const int MAX_PRICE_FOR_CAR = 70;
-const int FINE = 250;
 
 namespace MtmParkingLot {
+    static const int PRICE_FOR_HANDICAPPED = 15;
+    static const int PRICE_FOR_FIRST_HOUR_MOTORBIKE = 10;
+    static const int PRICE_FOR_EXTRA_HOURS_MOTORBIKE = 5;
+    static const int MAX_PRICE_FOR_MOTORBIKE = 35;
+    static const int PRICE_FOR_FIRST_HOUR_CAR = 20;
+    static const int PRICE_FOR_EXTRA_HOURS_CAR = 10;
+    static const int MAX_PRICE_FOR_CAR = 70;
+    static const int FINE = 250;
 
     Vehicle::Vehicle(string plate, Time entranceTime, VehicleType type) :
-            plate(move(plate)), entranceTime(entranceTime), type(type) {}
+            plate(move(plate)), entranceTime(entranceTime), type(type),
+            // FIXME: might cause issues
+            spot() {}
 
     bool Vehicle::isFined() {
         return this->fined;
