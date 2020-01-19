@@ -21,18 +21,50 @@ namespace MtmParkingLot {
         UniqueArray<Vehicle, std::equal_to<Vehicle>> handicapArray;
         UniqueArray<Vehicle, std::equal_to<Vehicle>> carArray;
 
-        ParkingResult insertNonHandicap(VehicleType vehicleType, LicensePlate
-        licensePlate, Time entranceTime);
-
+        /**
+         * Insert a handicap car to the parking lot
+         * @param vehicleType The type of vehicle to enter
+         * @param licensePlate The plate of the vehicle
+         * @param entranceTime The time the vehicle entered the lot
+         * @return SUCCESS if the vehicle entered successfully
+         * ALREADY_PARKED if the vehicle is already in the lot
+         * NO_EMPTY_SPOT if the lot is full
+         */
         ParkingResult insertHandicap(VehicleType vehicleType,
                                      LicensePlate licensePlate,
                                      Time entranceTime);
 
+        /**
+         * Insert a non handicap car to the parking lot
+         * @param vehicleType The type of vehicle to enter
+         * @param licensePlate The plate of the vehicle
+         * @param entranceTime The time the vehicle entered the lot
+         * @return SUCCESS if the vehicle entered successfully
+         * ALREADY_PARKED if the vehicle is already in the lot
+         * NO_EMPTY_SPOT if the lot is full
+         */
+        ParkingResult insertNonHandicap(VehicleType vehicleType, LicensePlate
+        licensePlate, Time entranceTime);
+
+        /**
+         * Returns the parking spot of an input vehicle
+         * @param array The array to get the parking spot from
+         * @param licensePlate The plate of the vehicle to get a spot for
+         * @param parkingSpot The parking spot variable to insert spot data into
+         * @return SUCCESS if the parking spot was returned
+         */
         static ParkingResult genericGetSpot(const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &array,
                                             const LicensePlate &licensePlate,
                                             ParkingSpot &parkingSpot);
 
+        /**
+         * Inspects an input parking lot and returns the number of vehicles
+         * that were fined in the inspection
+         * @param currentTime The time of the inspection
+         * @param array The array of the lot begin inspected
+         * @return The number of cars fined during the inspection
+         */
         static int
         genericInspectParkingLot(Time currentTime, const UniqueArray<Vehicle,
                 std::equal_to<Vehicle>> &array);
@@ -48,7 +80,7 @@ namespace MtmParkingLot {
         /**
          * Deletes an instance of ParkingLot
          */
-        ~ParkingLot();
+        ~ParkingLot() = delete;
 
         /**
          * Registers a new vehicle to the parking lot
@@ -99,6 +131,12 @@ namespace MtmParkingLot {
          */
         void inspectParkingLot(Time inspectionTime);
 
+        /**
+         * Fills the vector of vehicles in the parking lot from a vehicle array
+         * @param vehicleVector The vector to fill with vehicles
+         * @param type The type of vehicles to insert into the array
+         * @return THe vector after filling with vehicles
+         */
         vector<Vehicle>
         fillVectorFromArray(vector<Vehicle> &vehicleVector,
                             VehicleType type) const;
@@ -111,35 +149,100 @@ namespace MtmParkingLot {
          */
         friend ostream &operator<<(ostream &os, const ParkingLot &parkingLot);
 
-        ParkingResult
-        removeNonHandicap(VehicleType type, const LicensePlate &licensePlate,
-                          Time exitTime);
+        /**
+         * Prints the information of a vehicle leaving the lot
+         * @param vehicle The vehicle leaving the lot
+         * @param exitTime The time the vehicle left
+         * @param bill The price the vehicle needs to pay
+         */
+        static void
+        printVehicleExitByVehicle(Vehicle *vehicle, Time exitTime,
+                                  unsigned int bill);
 
+        /**
+         * Prints the information of a vehicle entering the lot
+         * @param vehicle The vehicle entering the lot
+         * @param spot The parking spot of the new vehicle
+         */
+        static void
+        printVehicleEntryByVehicle(Vehicle vehicle, ParkingSpot spot);
+
+        /**
+         * Prints the information of a vehicle that is already parked in the lot
+         * @param vehicle The vehicle that is already parked
+         */
+        static void printVehicleParkedByVehicle(Vehicle *vehicle);
+
+        /**
+         * Prints a message saying there is no more room for the vehicle in the
+         * parking lot
+         * @param vehicle The vehicle attempting to enter the lot
+         */
+        static void printNoRoomForVehicleByVehicle(Vehicle vehicle);
+
+        /**
+         * Removes a non handicap vehicle from the parking lot
+         * @param type The type of vehicle to remove
+         * @param licensePlate The plate of the vehicle to remove
+         * @param exitTime The time the vehicle was removed
+         * @return SUCCESS if the vehicle was removed
+         * VEHICLE_NOT_FOUND if the vehicle wasn't parked
+         */
+        ParkingResult removeNonHandicap(VehicleType type,
+                                        const LicensePlate &licensePlate,
+                                        Time exitTime);
+
+        /**
+         * Removes a handicap vehicle from the parking lot
+         * @param type The type of vehicle to remove
+         * @param licensePlate The plate of the vehicle to remove
+         * @param exitTime The time the vehicle was removed
+         * @return SUCCESS if the vehicle was removed
+         * VEHICLE_NOT_FOUND if the vehicle wasn't parked
+         */
         ParkingResult
         removeHandicap(const LicensePlate &licensePlate,
                        Time exitTime);
 
-        static void
-        printVehicleExitByVehicle(Vehicle *vehicle, Time exitTime, int bill);
-
-        static void
-        printVehicleEntryByVehicle(Vehicle vehicle, ParkingSpot spot);
-
-        static void printVehicleParkedByVehicle(Vehicle *vehicle);
-
-        static void printNoRoomForVehicleByVehicle(Vehicle vehicle);
-
+        /**
+         * Inserts a motorbike to the lot
+         * @param vehicleType The type of vehicle
+         * @param licensePlate THe plate of the vehicle
+         * @param entranceTime The time the vehicle entered the lot
+         * @return SUCCESS if the vehicle entered the lot
+         * VEHICLE_ALREADY_PARKED if the vehicle is already in the lot
+         * NO_EMPTY_SPOT if the lot is full
+         */
         ParkingResult
         insertMotorbike(VehicleType vehicleType, LicensePlate licensePlate,
                         Time entranceTime);
 
+        /**
+         * Inserts a car to the lot
+         * @param vehicleType The type of vehicle
+         * @param licensePlate THe plate of the vehicle
+         * @param entranceTime The time the vehicle entered the lot
+         * @return SUCCESS if the vehicle entered the lot
+         * VEHICLE_ALREADY_PARKED if the vehicle is already in the lot
+         * NO_EMPTY_SPOT if the lot is full
+         */
         ParkingResult
         insertCar(VehicleType vehicleType, LicensePlate licensePlate,
                   Time entranceTime);
 
+        /**
+         * Inserts a handicap car to the handicap lot
+         * @param vehicle The vehicle to insert to the lot
+         * @return SUCCESS if the vehicle entered the lot
+         */
         ParkingResult
         insertHandicapToHandicapBlock(const Vehicle &vehicle);
 
+        /**
+         * Inserts a handicap car to the car lot
+         * @param vehicle The vehicle to insert to the lot
+         * @return SUCCESS if the vehicle entered the lot
+         */
         ParkingResult
         insertHandicapToCarBlock(const Vehicle &vehicle);
     };

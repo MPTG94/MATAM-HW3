@@ -24,16 +24,12 @@ namespace MtmParkingLot {
             // FIXME: might cause issues
             spot() {}
 
-    bool Vehicle::isFined() {
-        return this->fined;
+    string Vehicle::getLicensePlate() {
+        return this->plate;
     }
 
     VehicleType Vehicle::getVehicleType() {
         return this->type;
-    }
-
-    string Vehicle::getLicensePlate() {
-        return this->plate;
     }
 
     Time Vehicle::getEntranceTime() {
@@ -49,11 +45,15 @@ namespace MtmParkingLot {
         return true;
     }
 
+    bool Vehicle::isFined() {
+        return this->fined;
+    }
+
     void Vehicle::markAsFined() {
         this->fined = true;
     }
 
-    int Vehicle::calculateParkingPrice(Time exitTime) {
+    unsigned int Vehicle::calculateParkingPrice(Time exitTime) {
         unsigned int price = 0;
         VehicleType CurrentType = this->getVehicleType();
         unsigned int oneHour = 1;
@@ -78,9 +78,10 @@ namespace MtmParkingLot {
         return (int) price;
     }
 
-    int Vehicle::calculatingCarParkingPrice(unsigned int totalTimeInHours,
-                                            unsigned int oneHour,
-                                            unsigned int price) {
+    unsigned int Vehicle::calculatingCarParkingPrice
+            (unsigned int totalTimeInHours,
+             unsigned int oneHour,
+             unsigned int price) {
         if (totalTimeInHours <= oneHour) {
             price = PRICE_FOR_FIRST_HOUR_CAR;
         } else if (totalTimeInHours > oneHour &&

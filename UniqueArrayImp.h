@@ -122,18 +122,6 @@ unsigned int UniqueArray<Element, Compare>::getSize() const {
 }
 
 template<class Element, class Compare>
-UniqueArray<Element, Compare>
-UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
-    UniqueArray<Element, Compare> filtered(*this);
-    for (unsigned int i = 0; i < this->size; i++) {
-        if (!f(*this->array[i])) {
-            filtered.remove(*this->array[i]);
-        }
-    }
-    return filtered;
-}
-
-template<class Element, class Compare>
 int
 UniqueArray<Element, Compare>::contains(const Element &element) const {
     Compare compare;
@@ -157,6 +145,18 @@ UniqueArray<Element, Compare>::getElementByIndex(unsigned int index) const {
         return this->array[index];
     }
     return nullptr;
+}
+
+template<class Element, class Compare>
+UniqueArray<Element, Compare>
+UniqueArray<Element, Compare>::filter(const UniqueArray::Filter &f) const {
+    UniqueArray<Element, Compare> filtered(*this);
+    for (unsigned int i = 0; i < this->size; i++) {
+        if (!f(*this->array[i])) {
+            filtered.remove(*this->array[i]);
+        }
+    }
+    return filtered;
 }
 
 #endif //HW3_UNIQUEARRAYIMP_H

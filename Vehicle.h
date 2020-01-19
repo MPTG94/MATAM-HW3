@@ -22,10 +22,10 @@ namespace MtmParkingLot {
         ParkingSpot spot;
         bool fined = false;
 
-        static int calculatingCarParkingPrice(unsigned int
-                                              totalTimeInHours,
-                                              unsigned int oneHour,
-                                              unsigned int price);
+        static unsigned int calculatingCarParkingPrice(unsigned int
+                                                       totalTimeInHours,
+                                                       unsigned int oneHour,
+                                                       unsigned int price);
 
         static unsigned int calculateMotorbikeParkingPrice(unsigned int
                                                            totalTimeInHours,
@@ -49,7 +49,7 @@ namespace MtmParkingLot {
 
         void markAsFined();
 
-        int calculateParkingPrice(Time exitTime);
+        unsigned int calculateParkingPrice(Time exitTime);
 
         bool operator==(const Vehicle &vehicle) const;
 
