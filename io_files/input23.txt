@@ -1,0 +1,104 @@
+6
+4
+7
+ENTER Handicapped 1yqM
+ENTER Handicapped 9QTsP5c
+EXIT 9QTsP5c
+INSPECT
+INSPECT
+ENTER Handicapped 9QTsP5c
+ENTER Car WSMtl
+EXIT 9QTsP5c
+EXIT hwr4ksV
+ENTER Car wMydu
+ENTER Handicapped L10B5WK
+ENTER Motorbike uz2HB
+ENTER Motorbike uz2HB
+EXIT 9QTsP5c
+EXIT L10B5WK
+ENTER Handicapped qfWF
+ENTER Car WSMtl
+ENTER Handicapped hwr4ksV
+EXIT 8cjQrBy
+EXIT wMydu
+EXIT CSf8Wge
+ENTER Handicapped 9QTsP5c
+ENTER Motorbike f5xH
+EXIT 1RFvO
+ENTER Handicapped 8cjQrBy
+ENTER Car CSf8Wge
+ENTER Car zqkiB
+ENTER Handicapped hwr4ksV
+ENTER Car WSMtl
+ENTER Handicapped 1RFvO
+ENTER Handicapped hwr4ksV
+ENTER Motorbike uz2HB
+INSPECT
+INSPECT
+EXIT zqkiB
+EXIT uz2HB
+ENTER Handicapped uG3t75
+ENTER Car zqkiB
+ENTER Handicapped hwr4ksV
+ENTER Car zqkiB
+ENTER Handicapped qfWF
+ENTER Handicapped uG3t75
+INSPECT
+INSPECT
+ENTER Car kJRD
+INSPECT
+ENTER Handicapped hwr4ksV
+PRINT
+PRINT
+ENTER Car CSf8Wge
+ENTER Handicapped 8cjQrBy
+ENTER Handicapped uG3t75
+EXIT L10B5WK
+ENTER Handicapped 9QTsP5c
+EXIT wMydu
+ENTER Handicapped 1yqM
+ENTER Car kJRD
+INSPECT
+ENTER Handicapped hwr4ksV
+ENTER Handicapped 1RFvO
+EXIT wMydu
+ENTER Handicapped uG3t75
+ENTER Handicapped L10B5WK
+ENTER Car WSMtl
+ENTER Car wMydu
+INSPECT
+ENTER Handicapped L10B5WK
+ENTER Handicapped uG3t75
+ENTER Handicapped 8cjQrBy
+ENTER Car kJRD
+ENTER Car wMydu
+PRINT
+PASS_TIME 662
+ENTER Handicapped hwr4ksV
+EXIT L10B5WK
+INSPECT
+ENTER Car wMydu
+ENTER Handicapped hwr4ksV
+EXIT 9QTsP5c
+EXIT 1RFvO
+EXIT CSf8Wge
+ENTER Handicapped qfWF
+ENTER Car WSMtl
+ENTER Handicapped L10B5WK
+INSPECT
+ENTER Car WSMtl
+EXIT f5xH
+INSPECT
+EXIT f5xH
+INSPECT
+PASS_TIME 530
+ENTER Car wMydu
+ENTER Car zqkiB
+ENTER Handicapped 1yqM
+ENTER Car kJRD
+EXIT 1yqM
+ENTER Handicapped hwr4ksV
+INSPECT
+ENTER Motorbike f5xH
+ENTER Car kJRD
+PRINT
